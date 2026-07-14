@@ -59,6 +59,15 @@
       --radius-large: 28px;
       --radius-medium: 22px;
       --radius-small: 16px;
+
+      /* Advanced Liquid Glass */
+      --scroll-shimmer: 0%;
+      --glass-glow: rgba(99, 212, 255, 0.18);
+      --glass-reflection-a: rgba(103, 232, 249, 0.16);
+      --glass-reflection-b: rgba(141, 117, 255, 0.12);
+      --glass-refraction: 1.08;
+      --glass-contrast: 1.08;
+      --glass-float-y: 0px;
     }
 
     body.light-theme {
@@ -93,6 +102,66 @@
       --modal-shadow:
         0 35px 100px rgba(46, 91, 132, 0.28),
         inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    }
+
+    body.midnight-theme {
+      color-scheme: dark;
+
+      --page-bg:
+        radial-gradient(circle at 14% 8%, rgba(18, 55, 105, 0.35), transparent 30%),
+        radial-gradient(circle at 88% 18%, rgba(20, 84, 125, 0.18), transparent 28%),
+        radial-gradient(circle at 55% 92%, rgba(34, 24, 92, 0.2), transparent 35%),
+        linear-gradient(155deg, #01040a 0%, #030812 46%, #07101d 100%);
+
+      --text-primary: rgba(244, 249, 255, 0.97);
+      --text-secondary: rgba(198, 216, 236, 0.68);
+      --text-muted: rgba(180, 199, 220, 0.46);
+
+      --glass-bg: rgba(5, 12, 24, 0.48);
+      --glass-bg-strong: rgba(6, 15, 30, 0.66);
+      --glass-border: rgba(111, 178, 235, 0.15);
+      --glass-highlight: rgba(142, 211, 255, 0.13);
+
+      --control-bg: rgba(12, 26, 46, 0.56);
+      --control-hover: rgba(18, 38, 65, 0.74);
+
+      --accent: #55cfff;
+      --accent-strong: #8ee5ff;
+      --accent-soft: rgba(60, 190, 255, 0.13);
+
+      --shadow:
+        0 26px 80px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(164, 218, 255, 0.08);
+
+      --modal-shadow:
+        0 34px 110px rgba(0, 0, 0, 0.72),
+        inset 0 1px 0 rgba(164, 218, 255, 0.1);
+    }
+
+
+    /* Dynamic glow based on time of day */
+    body.time-morning {
+      --glass-glow: rgba(255, 198, 116, 0.2);
+      --glass-reflection-a: rgba(255, 210, 138, 0.18);
+      --glass-reflection-b: rgba(126, 215, 255, 0.13);
+    }
+
+    body.time-day {
+      --glass-glow: rgba(92, 203, 255, 0.2);
+      --glass-reflection-a: rgba(111, 232, 255, 0.2);
+      --glass-reflection-b: rgba(107, 139, 255, 0.13);
+    }
+
+    body.time-evening {
+      --glass-glow: rgba(179, 113, 255, 0.2);
+      --glass-reflection-a: rgba(255, 145, 106, 0.17);
+      --glass-reflection-b: rgba(151, 103, 255, 0.17);
+    }
+
+    body.time-night {
+      --glass-glow: rgba(89, 131, 255, 0.18);
+      --glass-reflection-a: rgba(77, 168, 255, 0.15);
+      --glass-reflection-b: rgba(134, 93, 255, 0.13);
     }
 
     * {
@@ -178,48 +247,152 @@
     .glass {
       position: relative;
       overflow: hidden;
+      isolation: isolate;
+
       background:
+        radial-gradient(
+          circle at calc(18% + var(--scroll-shimmer)) 12%,
+          var(--glass-reflection-a),
+          transparent 34%
+        ),
+        radial-gradient(
+          circle at calc(86% - var(--scroll-shimmer)) 88%,
+          var(--glass-reflection-b),
+          transparent 38%
+        ),
         linear-gradient(
           145deg,
-          rgba(255, 255, 255, 0.08),
-          transparent 42%
+          rgba(255, 255, 255, 0.075),
+          transparent 38%,
+          rgba(255, 255, 255, 0.025)
         ),
         var(--glass-bg);
 
       border: 1px solid var(--glass-border);
-      box-shadow: var(--shadow);
+
+      box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.28),
+        0 0 34px var(--glass-glow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.035);
 
       -webkit-backdrop-filter:
-        saturate(180%)
-        blur(var(--blur));
+        blur(var(--blur))
+        saturate(190%)
+        contrast(var(--glass-contrast))
+        brightness(var(--glass-refraction));
 
       backdrop-filter:
-        saturate(180%)
-        blur(var(--blur));
+        blur(var(--blur))
+        saturate(190%)
+        contrast(var(--glass-contrast))
+        brightness(var(--glass-refraction));
+
+      transform: translate3d(0, var(--glass-float-y), 0);
+      transition:
+        transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1),
+        background 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease,
+        backdrop-filter 0.4s ease;
     }
 
+    /* Moving colour reflection and refraction layer */
     .glass::before {
+      content: "";
+      position: absolute;
+      inset: -35%;
+      z-index: 0;
+      pointer-events: none;
+
+      background:
+        conic-gradient(
+          from calc(110deg + var(--scroll-shimmer)),
+          transparent 0deg,
+          rgba(121, 226, 255, 0.03) 48deg,
+          rgba(255, 255, 255, 0.19) 72deg,
+          rgba(165, 120, 255, 0.08) 100deg,
+          transparent 145deg,
+          transparent 360deg
+        );
+
+      filter: blur(18px);
+      opacity: 0.65;
+      transform:
+        translateX(calc(var(--scroll-shimmer) * 0.8))
+        rotate(calc(var(--scroll-shimmer) * 0.12));
+      mix-blend-mode: screen;
+      transition: opacity 0.35s ease;
+    }
+
+    /* Very thin Apple-style edge shimmer */
+    .glass::after {
       content: "";
       position: absolute;
       inset: 0;
       z-index: 0;
       pointer-events: none;
+      border-radius: inherit;
+      padding: 1px;
 
       background:
         linear-gradient(
-          125deg,
-          var(--glass-highlight),
-          transparent 18%,
-          transparent 78%,
-          rgba(255, 255, 255, 0.08)
+          115deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.08) 20%,
+          rgba(165, 234, 255, 0.68) calc(42% + var(--scroll-shimmer)),
+          rgba(255, 255, 255, 0.08) calc(52% + var(--scroll-shimmer)),
+          transparent calc(68% + var(--scroll-shimmer))
         );
 
-      opacity: 0.42;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+
+      opacity: 0.58;
+    }
+
+    .glass:hover {
+      --glass-float-y: -3px;
+      box-shadow:
+        0 30px 82px rgba(0, 0, 0, 0.31),
+        0 0 46px var(--glass-glow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.23),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
     }
 
     .glass > * {
       position: relative;
       z-index: 1;
+    }
+
+    .hero.glass,
+    .weather-card.glass,
+    .warning.glass,
+    .heat-notice.glass,
+    .iframe-shell.glass,
+    .top-nav.glass {
+      will-change: transform, box-shadow, backdrop-filter;
+    }
+
+    .weather-card.glass:nth-child(2n) {
+      animation: glassFloat 8s ease-in-out infinite reverse;
+    }
+
+    .weather-card.glass:nth-child(2n + 1) {
+      animation: glassFloat 9s ease-in-out infinite;
+    }
+
+    @keyframes glassFloat {
+      0%, 100% {
+        translate: 0 0;
+      }
+
+      50% {
+        translate: 0 -3px;
+      }
     }
 
     .hidden {
@@ -996,6 +1169,86 @@
       font-size: 0.82rem;
     }
 
+    .settings-title-line {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .beta-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 9px;
+      color: #ff9f43;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(255, 159, 67, 0.38);
+      border-radius: 999px;
+      background: rgba(255, 159, 67, 0.11);
+    }
+
+    .range-control {
+      width: min(170px, 46vw);
+      flex: 0 0 auto;
+    }
+
+    .glass-range {
+      width: 100%;
+      height: 7px;
+      cursor: pointer;
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        rgba(99, 212, 255, 0.3),
+        rgba(99, 212, 255, 0.95)
+      );
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .glass-range::-webkit-slider-thumb {
+      width: 22px;
+      height: 22px;
+      cursor: grab;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow:
+        0 5px 16px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      -webkit-appearance: none;
+    }
+
+    .glass-range::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      cursor: grab;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 5px 16px rgba(0, 0, 0, 0.28);
+    }
+
+    .range-labels {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 7px;
+      color: var(--text-muted);
+      font-size: 0.65rem;
+    }
+
+    .range-value {
+      display: block;
+      margin-top: 6px;
+      color: var(--accent-strong);
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
     .close-settings {
       display: grid;
       place-items: center;
@@ -1683,7 +1936,10 @@
   >
     <div class="settings-heading">
       <div>
-        <h2 id="settings-title">Settings</h2>
+        <div class="settings-title-line">
+          <h2 id="settings-title">Settings</h2>
+          <span class="beta-badge">Beta</span>
+        </div>
         <p>Personalise your forecast.</p>
       </div>
 
@@ -1713,8 +1969,33 @@
         >
           <option value="auto">Automatic</option>
           <option value="dark">Dark</option>
+          <option value="midnight">Midnight</option>
           <option value="light">Light</option>
         </select>
+      </label>
+
+      <label class="setting-row">
+        <span class="setting-copy">
+          <strong>Liquid Glass transparency</strong>
+          <span>Adjust how transparent the glass panels appear.</span>
+        </span>
+
+        <span class="range-control">
+          <input
+            type="range"
+            id="transparency-setting"
+            class="glass-range"
+            min="15"
+            max="85"
+            value="45"
+            aria-label="Liquid Glass transparency"
+          >
+          <span class="range-labels">
+            <span>Really transparent</span>
+            <span>Less transparent</span>
+          </span>
+          <span class="range-value" id="transparency-value">45%</span>
+        </span>
       </label>
 
       <label class="setting-row">
@@ -1933,6 +2214,7 @@
       showSomerset: true,
       unit: "celsius",
       reduceMotion: false,
+      glassTransparency: 45,
       heatNoticeDismissed: false
     };
 
@@ -1963,6 +2245,8 @@
       somersetSetting: document.getElementById("somerset-setting"),
       unitSetting: document.getElementById("unit-setting"),
       motionSetting: document.getElementById("motion-setting"),
+      transparencySetting: document.getElementById("transparency-setting"),
+      transparencyValue: document.getElementById("transparency-value"),
       resetSettings: document.getElementById("reset-settings"),
 
       toast: document.getElementById("toast")
@@ -2025,6 +2309,10 @@
         return "light";
       }
 
+      if (settings.theme === "midnight") {
+        return "midnight";
+      }
+
       if (settings.theme === "dark") {
         return "dark";
       }
@@ -2034,7 +2322,80 @@
         : "dark";
     }
 
-    function applyTheme() {
+    function applyGlassTransparency() {
+  const level = Math.max(
+    0,
+    Math.min(100, Number(settings.glassTransparency) || 0)
+  );
+
+  const t = level / 100;
+  const theme = getPreferredTheme();
+
+  const base =
+    theme === "light"
+      ? "255,255,255"
+      : theme === "midnight"
+        ? "5,12,24"
+        : "255,255,255";
+
+  /*
+    Strong curve:
+    0 = solid
+    50 = noticeably transparent
+    100 = nearly invisible, highly refractive glass
+  */
+  const alpha = Math.max(0.002, Math.pow(1 - t, 4.2));
+  const blur = 7 + t * 56;
+  const refraction = 1.02 + t * 0.16;
+  const contrast = 1.02 + t * 0.12;
+
+  document.documentElement.style.setProperty(
+    "--glass-bg",
+    `rgba(${base}, ${alpha.toFixed(4)})`
+  );
+
+  document.documentElement.style.setProperty(
+    "--glass-bg-strong",
+    `rgba(${base}, ${Math.min(1, alpha * 1.22).toFixed(4)})`
+  );
+
+  document.documentElement.style.setProperty(
+    "--control-bg",
+    `rgba(${base}, ${Math.min(1, alpha * 1.12).toFixed(4)})`
+  );
+
+  document.documentElement.style.setProperty(
+    "--control-hover",
+    `rgba(${base}, ${Math.min(1, alpha * 1.36 + 0.04).toFixed(4)})`
+  );
+
+  document.documentElement.style.setProperty(
+    "--glass-border",
+    `rgba(255, 255, 255, ${(0.012 + alpha * 0.25).toFixed(4)})`
+  );
+
+  document.documentElement.style.setProperty(
+    "--glass-highlight",
+    `rgba(255, 255, 255, ${(0.01 + alpha * 0.18).toFixed(4)})`
+  );
+
+  document.documentElement.style.setProperty(
+    "--blur",
+    `${blur.toFixed(1)}px`
+  );
+
+  document.documentElement.style.setProperty(
+    "--glass-refraction",
+    refraction.toFixed(3)
+  );
+
+  document.documentElement.style.setProperty(
+    "--glass-contrast",
+    contrast.toFixed(3)
+  );
+}
+
+function applyTheme() {
       const theme = getPreferredTheme();
 
       document.body.classList.toggle(
@@ -2042,13 +2403,22 @@
         theme === "light"
       );
 
+      document.body.classList.toggle(
+        "midnight-theme",
+        theme === "midnight"
+      );
+
       const themeColour = theme === "light"
         ? "#dfefff"
-        : "#0b1628";
+        : theme === "midnight"
+          ? "#01040a"
+          : "#0b1628";
 
       document
         .querySelector('meta[name="theme-color"]')
         .setAttribute("content", themeColour);
+
+      applyGlassTransparency();
     }
 
     /*
@@ -2085,6 +2455,8 @@
       elements.somersetSetting.checked = settings.showSomerset;
       elements.unitSetting.value = settings.unit;
       elements.motionSetting.checked = settings.reduceMotion;
+      elements.transparencySetting.value = settings.glassTransparency;
+      elements.transparencyValue.textContent = `${settings.glassTransparency}%`;
     }
 
     /*
@@ -2589,6 +2961,16 @@
       }
     );
 
+    elements.transparencySetting.addEventListener("input", (event) => {
+      settings.glassTransparency = Number(event.target.value);
+      elements.transparencyValue.textContent = `${settings.glassTransparency}%`;
+      applyGlassTransparency();
+    });
+
+    elements.transparencySetting.addEventListener("change", () => {
+      saveSettings();
+    });
+
     elements.dismissHeat.addEventListener("click", () => {
       settings.heatNoticeDismissed = true;
       elements.heatNotice.classList.add("hidden");
@@ -2615,10 +2997,74 @@
 
     /*
       ------------------------------------------------------------
+      ADVANCED LIQUID GLASS EFFECTS
+      ------------------------------------------------------------
+    */
+
+    function updateTimeGlow() {
+      const hour = new Date().getHours();
+
+      document.body.classList.remove(
+        "time-morning",
+        "time-day",
+        "time-evening",
+        "time-night"
+      );
+
+      if (hour >= 5 && hour < 11) {
+        document.body.classList.add("time-morning");
+      } else if (hour >= 11 && hour < 17) {
+        document.body.classList.add("time-day");
+      } else if (hour >= 17 && hour < 21) {
+        document.body.classList.add("time-evening");
+      } else {
+        document.body.classList.add("time-night");
+      }
+    }
+
+    let shimmerFrameRequested = false;
+
+    function updateScrollShimmer() {
+      if (shimmerFrameRequested) {
+        return;
+      }
+
+      shimmerFrameRequested = true;
+
+      requestAnimationFrame(() => {
+        const maxScroll =
+          document.documentElement.scrollHeight - window.innerHeight;
+
+        const progress =
+          maxScroll > 0
+            ? Math.min(1, Math.max(0, window.scrollY / maxScroll))
+            : 0;
+
+        const shimmer = `${(progress * 38 - 19).toFixed(2)}%`;
+
+        document.documentElement.style.setProperty(
+          "--scroll-shimmer",
+          shimmer
+        );
+
+        shimmerFrameRequested = false;
+      });
+    }
+
+    window.addEventListener("scroll", updateScrollShimmer, {
+      passive: true
+    });
+
+    window.addEventListener("resize", updateScrollShimmer);
+
+    /*
+      ------------------------------------------------------------
       INITIAL PAGE LOAD
       ------------------------------------------------------------
     */
 
+    updateTimeGlow();
+    updateScrollShimmer();
     renderWarnings();
     syncSettingsControls();
     applyAllSettings();
@@ -2634,6 +3080,8 @@
         renderSection(activeSection);
       }
     }, 15 * 60 * 1000);
+
+    setInterval(updateTimeGlow, 60 * 1000);
   </script>
 </body>
 </html>
