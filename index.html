@@ -1631,6 +1631,251 @@
       line-height: 1.5;
     }
 
+
+
+    /* Phone fit and colour accessibility */
+    .phone-fit-button {
+      flex: 0 0 auto;
+      padding: 11px 15px;
+      color: var(--text-primary);
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--glass-border);
+      border-radius: 15px;
+      background: var(--control-bg);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.14);
+      transition: transform .25s ease, background .25s ease;
+    }
+
+    .phone-fit-button:hover {
+      transform: translateY(-1px);
+      background: var(--control-hover);
+    }
+
+    .phone-fit-button.active {
+      background: linear-gradient(135deg, rgba(55,188,238,.88), rgba(88,132,255,.88));
+      border-color: rgba(121,226,255,.72);
+    }
+
+    body.phone-fit .container {
+      width: min(430px, calc(100% - 18px));
+    }
+
+    body.phone-fit .top-nav {
+      top: 8px;
+      margin-top: 8px;
+    }
+
+    body.phone-fit .brand-status {
+      display: none;
+    }
+
+    body.phone-fit .hero {
+      min-height: 390px;
+      padding: 27px 22px;
+      border-radius: 28px;
+    }
+
+    body.phone-fit .hero h1 {
+      font-size: clamp(3rem, 17vw, 4.6rem);
+    }
+
+    body.phone-fit .places-grid,
+    body.phone-fit .news-grid {
+      grid-template-columns: 1fr;
+    }
+
+    body.phone-fit .section-toolbar,
+    body.phone-fit .embed-header,
+    body.phone-fit .heat-notice {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    body.phone-fit .tabs {
+      width: 100%;
+    }
+
+    body.phone-fit .tab-btn {
+      flex: 1;
+      padding-inline: 10px;
+    }
+
+    body.phone-fit .weather-card {
+      min-height: 240px;
+      padding: 22px;
+    }
+
+    body.phone-fit .settings-panel {
+      top: auto;
+      right: 8px;
+      bottom: 8px;
+      left: 8px;
+      width: auto;
+      max-height: calc(100vh - 16px);
+      border-radius: 31px;
+      transform: translateY(40px) scale(.97);
+    }
+
+    body.phone-fit .settings-panel.open {
+      transform: translateY(0) scale(1);
+    }
+
+    .colour-filter-shell {
+      width: 82px;
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 9px;
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      background: var(--control-bg);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.14);
+    }
+
+    .colour-filter-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .colour-filter-button {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
+      cursor: pointer;
+      border: 2px solid rgba(255,255,255,.38);
+      border-radius: 50%;
+      box-shadow: 0 5px 14px rgba(0,0,0,.2), inset 0 1px 1px rgba(255,255,255,.4);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .colour-filter-button:hover { transform: scale(1.08); }
+
+    .colour-filter-button[aria-pressed="true"]::after {
+      content: "✓";
+      display: grid;
+      place-items: center;
+      width: 25px;
+      height: 25px;
+      color: white;
+      font-weight: 900;
+      text-shadow: 0 1px 4px rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 50%;
+      background: rgba(255,255,255,.22);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 3px 10px rgba(0,0,0,.2);
+    }
+
+    .colour-filter-clear {
+      color: var(--text-primary);
+      font-size: 1.2rem;
+      font-weight: 800;
+      background: rgba(255,255,255,.08);
+    }
+
+    .colour-filter-clear[aria-pressed="true"]::after { content: "×"; }
+
+    .filter-red { background: #ef4444; }
+    .filter-orange { background: #f97316; }
+    .filter-yellow { background: #facc15; }
+    .filter-green { background: #22c55e; }
+    .filter-blue { background: #3b82f6; }
+    .filter-indigo { background: #6366f1; }
+    .filter-violet { background: #a855f7; }
+
+    body::marker { color: var(--accent); }
+
+    body.colour-filter-red { --accent:#ff8a8a; --accent-strong:#ffb0b0; --glass-glow:rgba(239,68,68,.24); }
+    body.colour-filter-orange { --accent:#ffae6b; --accent-strong:#ffd0a8; --glass-glow:rgba(249,115,22,.24); }
+    body.colour-filter-yellow { --accent:#ffe56b; --accent-strong:#fff0a6; --glass-glow:rgba(250,204,21,.22); }
+    body.colour-filter-green { --accent:#63e6a2; --accent-strong:#9af2c2; --glass-glow:rgba(34,197,94,.22); }
+    body.colour-filter-blue { --accent:#6fb0ff; --accent-strong:#a8d0ff; --glass-glow:rgba(59,130,246,.24); }
+    body.colour-filter-indigo { --accent:#9294ff; --accent-strong:#bdbeff; --glass-glow:rgba(99,102,241,.24); }
+    body.colour-filter-violet { --accent:#d28aff; --accent-strong:#e6b8ff; --glass-glow:rgba(168,85,247,.24); }
+
+
+
+    /* Full-page colour filters: tint the entire interface, not only accents */
+    .full-page-colour-wash {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      pointer-events: none;
+      opacity: 0;
+      background: transparent;
+      mix-blend-mode: color;
+      transition: opacity 0.3s ease, background 0.3s ease;
+    }
+
+    body.colour-filter-red .full-page-colour-wash { background: #ef4444; opacity: 0.72; }
+    body.colour-filter-orange .full-page-colour-wash { background: #f97316; opacity: 0.72; }
+    body.colour-filter-yellow .full-page-colour-wash { background: #facc15; opacity: 0.68; }
+    body.colour-filter-green .full-page-colour-wash { background: #22c55e; opacity: 0.72; }
+    body.colour-filter-blue .full-page-colour-wash { background: #3b82f6; opacity: 0.72; }
+    body.colour-filter-indigo .full-page-colour-wash { background: #6366f1; opacity: 0.72; }
+    body.colour-filter-violet .full-page-colour-wash { background: #a855f7; opacity: 0.72; }
+
+    /* Make every major surface visibly follow the selected colour */
+    body[class*="colour-filter-"] .glass,
+    body[class*="colour-filter-"] .settings-panel,
+    body[class*="colour-filter-"] .toast,
+    body[class*="colour-filter-"] .tabs,
+    body[class*="colour-filter-"] .glass-select,
+    body[class*="colour-filter-"] .setting-row,
+    body[class*="colour-filter-"] .switch-track,
+    body[class*="colour-filter-"] button {
+      border-color: color-mix(in srgb, var(--accent) 58%, white 22%);
+      box-shadow:
+        0 22px 70px color-mix(in srgb, var(--accent) 24%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.22);
+    }
+
+    body.colour-filter-red { --page-bg: radial-gradient(circle at 18% 12%, rgba(255,120,120,.52), transparent 35%), linear-gradient(150deg,#260609,#5a1017 52%,#21070a); }
+    body.colour-filter-orange { --page-bg: radial-gradient(circle at 18% 12%, rgba(255,180,95,.52), transparent 35%), linear-gradient(150deg,#281006,#652a0b 52%,#231006); }
+    body.colour-filter-yellow { --page-bg: radial-gradient(circle at 18% 12%, rgba(255,238,110,.5), transparent 35%), linear-gradient(150deg,#292305,#66590c 52%,#211c04); }
+    body.colour-filter-green { --page-bg: radial-gradient(circle at 18% 12%, rgba(100,255,160,.48), transparent 35%), linear-gradient(150deg,#052315,#0d5d35 52%,#041d11); }
+    body.colour-filter-blue { --page-bg: radial-gradient(circle at 18% 12%, rgba(100,175,255,.52), transparent 35%), linear-gradient(150deg,#06152b,#123f78 52%,#071329); }
+    body.colour-filter-indigo { --page-bg: radial-gradient(circle at 18% 12%, rgba(145,145,255,.52), transparent 35%), linear-gradient(150deg,#0e0b2d,#292775 52%,#0b0926); }
+    body.colour-filter-violet { --page-bg: radial-gradient(circle at 18% 12%, rgba(215,130,255,.52), transparent 35%), linear-gradient(150deg,#23082f,#5d1674 52%,#1c0627); }
+
+    body.colour-blind-friendly {
+      --text-secondary: rgba(245,248,255,.84);
+      --text-muted: rgba(232,239,250,.7);
+      --glass-border: rgba(255,255,255,.38);
+    }
+
+    body.light-theme.colour-blind-friendly {
+      --text-secondary: rgba(9,28,48,.82);
+      --text-muted: rgba(9,28,48,.68);
+      --glass-border: rgba(26,55,82,.3);
+    }
+
+    body.colour-blind-friendly .warning {
+      border-width: 2px;
+      border-style: solid;
+    }
+
+    body.colour-blind-friendly .warning.heat,
+    body.colour-blind-friendly .warning.yellow { border-color: #f5d547; }
+    body.colour-blind-friendly .warning.humidity,
+    body.colour-blind-friendly .warning.cold { border-color: #68b7ff; }
+    body.colour-blind-friendly .warning.outage,
+    body.colour-blind-friendly .warning.red { border-color: #ff6b6b; }
+
+    body.colour-blind-friendly .warning-symbol {
+      outline: 2px solid rgba(255,255,255,.58);
+      outline-offset: 2px;
+    }
+
     /* Reduced motion */
 
     body.reduce-motion *,
@@ -1816,6 +2061,7 @@
 </head>
 
 <body>
+  <div class="full-page-colour-wash" aria-hidden="true"></div>
   <div class="container">
     <nav class="top-nav glass">
       <div class="brand">
@@ -2122,6 +2368,48 @@
       </label>
     </div>
 
+
+
+    <div class="settings-group">
+      <div class="settings-group-title">Phone & accessibility</div>
+
+      <div class="setting-row">
+        <span class="setting-copy">
+          <strong>Fit for phone</strong>
+          <span>Force a narrow, single-column layout that fits a phone screen.</span>
+        </span>
+        <button type="button" class="phone-fit-button" id="phone-fit-setting" aria-pressed="false">Fit phone</button>
+      </div>
+
+      <label class="setting-row">
+        <span class="setting-copy">
+          <strong>Colour-blind friendly</strong>
+          <span>Uses stronger contrast, clearer borders and symbols so warnings do not rely on colour alone.</span>
+        </span>
+        <span class="switch"><input type="checkbox" id="colour-blind-setting"><span class="switch-track"></span></span>
+      </label>
+
+      <div class="setting-row">
+        <span class="setting-copy">
+          <strong>Colour filter</strong>
+          <span>Choose a rainbow tint. The glass tick shows the active colour; use the final cross to turn it off.</span>
+        </span>
+
+        <div class="colour-filter-shell" id="colour-filter-picker" role="group" aria-label="Colour filter">
+          <div class="colour-filter-list">
+            <button type="button" class="colour-filter-button filter-red" data-colour-filter="red" aria-label="Red colour filter" aria-pressed="false"></button>
+            <button type="button" class="colour-filter-button filter-orange" data-colour-filter="orange" aria-label="Orange colour filter" aria-pressed="false"></button>
+            <button type="button" class="colour-filter-button filter-yellow" data-colour-filter="yellow" aria-label="Yellow colour filter" aria-pressed="false"></button>
+            <button type="button" class="colour-filter-button filter-green" data-colour-filter="green" aria-label="Green colour filter" aria-pressed="false"></button>
+            <button type="button" class="colour-filter-button filter-blue" data-colour-filter="blue" aria-label="Blue colour filter" aria-pressed="false"></button>
+            <button type="button" class="colour-filter-button filter-indigo" data-colour-filter="indigo" aria-label="Indigo colour filter" aria-pressed="false"></button>
+            <button type="button" class="colour-filter-button filter-violet" data-colour-filter="violet" aria-label="Violet colour filter" aria-pressed="false"></button>
+          </div>
+          <button type="button" class="colour-filter-button colour-filter-clear" data-colour-filter="none" aria-label="Turn colour filter off" aria-pressed="true">×</button>
+        </div>
+      </div>
+    </div>
+
     <div class="settings-group">
       <div class="settings-group-title">Forecast areas</div>
 
@@ -2380,7 +2668,10 @@
       compactCards: false,
       showNews: true,
       showStatus: true,
-      showRadar: true
+      showRadar: true,
+      phoneFit: false,
+      colourBlindFriendly: false,
+      colourFilter: "none"
     };
 
     let settings = loadSettings();
@@ -2418,6 +2709,9 @@
       newsSetting: document.getElementById("news-setting"),
       statusSetting: document.getElementById("status-setting"),
       radarSetting: document.getElementById("radar-setting"),
+      phoneFitSetting: document.getElementById("phone-fit-setting"),
+      colourBlindSetting: document.getElementById("colour-blind-setting"),
+      colourFilterButtons: document.querySelectorAll("[data-colour-filter]"),
       resetSettings: document.getElementById("reset-settings"),
 
       toast: document.getElementById("toast")
@@ -2583,6 +2877,13 @@ function applyTheme() {
       elements.newsSetting.checked = settings.showNews;
       elements.statusSetting.checked = settings.showStatus;
       elements.radarSetting.checked = settings.showRadar;
+      elements.phoneFitSetting.classList.toggle("active", settings.phoneFit);
+      elements.phoneFitSetting.setAttribute("aria-pressed", String(settings.phoneFit));
+      elements.phoneFitSetting.textContent = settings.phoneFit ? "Phone fitted" : "Fit phone";
+      elements.colourBlindSetting.checked = settings.colourBlindFriendly;
+      elements.colourFilterButtons.forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.colourFilter === settings.colourFilter));
+      });
     }
 
     /*
@@ -2978,8 +3279,38 @@ function applyTheme() {
       ------------------------------------------------------------
     */
 
+
+
+    function applyPhoneFit() {
+      document.body.classList.toggle("phone-fit", settings.phoneFit);
+      elements.phoneFitSetting.classList.toggle("active", settings.phoneFit);
+      elements.phoneFitSetting.setAttribute("aria-pressed", String(settings.phoneFit));
+      elements.phoneFitSetting.textContent = settings.phoneFit ? "Phone fitted" : "Fit phone";
+    }
+
+    function applyColourAccessibility() {
+      document.body.classList.toggle("colour-blind-friendly", settings.colourBlindFriendly);
+
+      const filters = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+      filters.forEach((filter) => {
+        document.body.classList.toggle(
+          `colour-filter-${filter}`,
+          settings.colourFilter === filter
+        );
+      });
+
+      elements.colourFilterButtons.forEach((button) => {
+        button.setAttribute(
+          "aria-pressed",
+          String(button.dataset.colourFilter === settings.colourFilter)
+        );
+      });
+    }
+
     function applyAllSettings() {
       applyTheme();
+      applyPhoneFit();
+      applyColourAccessibility();
 
       document.body.classList.toggle("reduce-motion", settings.reduceMotion);
       document.body.classList.toggle("large-text", settings.largeText);
@@ -3139,6 +3470,30 @@ function applyTheme() {
         settings[key] = event.target.checked;
         document.body.classList.toggle(className, !settings[key]);
         saveSettings();
+      });
+    });
+
+
+
+    elements.phoneFitSetting.addEventListener("click", () => {
+      settings.phoneFit = !settings.phoneFit;
+      applyPhoneFit();
+      saveSettings();
+      showToast(settings.phoneFit ? "Phone layout switched on" : "Phone layout switched off");
+    });
+
+    elements.colourBlindSetting.addEventListener("change", (event) => {
+      settings.colourBlindFriendly = event.target.checked;
+      applyColourAccessibility();
+      saveSettings();
+    });
+
+    elements.colourFilterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        settings.colourFilter = button.dataset.colourFilter;
+        applyColourAccessibility();
+        saveSettings();
+        showToast(settings.colourFilter === "none" ? "Colour filter switched off" : `${settings.colourFilter[0].toUpperCase() + settings.colourFilter.slice(1)} filter selected`);
       });
     });
 
