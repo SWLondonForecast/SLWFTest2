@@ -692,6 +692,11 @@
       background: rgba(245, 158, 11, 0.94);
     }
 
+    .warning.humidity .warning-symbol {
+      color: white;
+      background: linear-gradient(145deg, rgba(39, 176, 229, 0.96), rgba(74, 116, 255, 0.94));
+    }
+
     .warning-copy {
       flex: 1;
       min-width: 0;
@@ -1004,6 +1009,77 @@
       color: var(--text-secondary);
       font-size: 0.92rem;
       line-height: 1.55;
+    }
+
+    /* News section */
+
+    .title-with-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .news-card {
+      padding: 23px;
+      border-radius: var(--radius-medium);
+    }
+
+    .news-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 13px;
+      color: var(--text-muted);
+      font-size: 0.74rem;
+    }
+
+    .news-category {
+      padding: 6px 9px;
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      background: var(--control-bg);
+      color: var(--accent-strong);
+      font-weight: 700;
+    }
+
+    .news-card h3 {
+      font-size: 1.12rem;
+      line-height: 1.35;
+      letter-spacing: -0.025em;
+    }
+
+    .news-card p {
+      margin-top: 9px;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    body.compact-cards .weather-card {
+      min-height: 220px;
+      padding: 21px;
+    }
+
+    body.compact-cards .news-card {
+      padding: 18px;
+    }
+
+    body.large-text {
+      font-size: 112%;
+    }
+
+    body.hide-status #status-section,
+    body.hide-radar #radar-section,
+    body.hide-news #news-section {
+      display: none;
     }
 
     /* Embedded sections */
@@ -1615,7 +1691,8 @@
         padding: 32px;
       }
 
-      .places-grid {
+      .places-grid,
+      .news-grid {
         grid-template-columns: 1fr;
       }
 
@@ -1871,6 +1948,22 @@
         </p>
       </section>
 
+      <section class="embed-section" id="news-section">
+        <div class="embed-header">
+          <div>
+            <div class="section-label">Latest updates</div>
+            <div class="title-with-badge">
+              <h2>News</h2>
+              <span class="beta-badge">Beta</span>
+            </div>
+          </div>
+
+          <span class="external-label">Local forecast updates</span>
+        </div>
+
+        <div class="news-grid" id="news-grid"></div>
+      </section>
+
       <section class="embed-section" id="status-section">
         <div class="embed-header">
           <div>
@@ -2012,6 +2105,21 @@
           <span class="switch-track"></span>
         </span>
       </label>
+      <label class="setting-row">
+        <span class="setting-copy">
+          <strong>Large text</strong>
+          <span>Make text across the dashboard easier to read.</span>
+        </span>
+        <span class="switch"><input type="checkbox" id="large-text-setting"><span class="switch-track"></span></span>
+      </label>
+
+      <label class="setting-row">
+        <span class="setting-copy">
+          <strong>Compact cards</strong>
+          <span>Fit more information on screen with smaller cards.</span>
+        </span>
+        <span class="switch"><input type="checkbox" id="compact-setting"><span class="switch-track"></span></span>
+      </label>
     </div>
 
     <div class="settings-group">
@@ -2070,6 +2178,25 @@
       </label>
     </div>
 
+    <div class="settings-group">
+      <div class="settings-group-title">Page sections</div>
+
+      <label class="setting-row">
+        <span class="setting-copy"><strong>News</strong><span>Show the News beta section.</span></span>
+        <span class="switch"><input type="checkbox" id="news-setting" checked><span class="switch-track"></span></span>
+      </label>
+
+      <label class="setting-row">
+        <span class="setting-copy"><strong>Website status</strong><span>Show the service status panel.</span></span>
+        <span class="switch"><input type="checkbox" id="status-setting" checked><span class="switch-track"></span></span>
+      </label>
+
+      <label class="setting-row">
+        <span class="setting-copy"><strong>Rainfall radar</strong><span>Show the live UK rainfall radar.</span></span>
+        <span class="switch"><input type="checkbox" id="radar-setting" checked><span class="switch-track"></span></span>
+      </label>
+    </div>
+
     <button
       type="button"
       class="reset-button"
@@ -2122,6 +2249,14 @@
         visible: false
       },
       {
+        id: "humidity",
+        type: "humidity",
+        symbol: "💧",
+        title: "Humidity Warning",
+        desc: "Humidity is high today. Take breaks, drink water and keep rooms ventilated where possible.",
+        visible: true
+      },
+      {
         id: "outage",
         type: "outage",
         symbol: "●",
@@ -2136,6 +2271,31 @@
         title: "Partial Service Outage",
         desc: "Some website features may be unavailable while we restore full service.",
         visible: false
+      }
+    ];
+
+    /*
+      ------------------------------------------------------------
+      NEWS CONFIGURATION
+      Add, remove or edit objects below. Each item becomes its own box.
+      Set visible to false to hide an item.
+      ------------------------------------------------------------
+    */
+
+    const newsConfig = [
+      {
+        title: "Welcome to the new News section",
+        text: "Important forecast updates and service announcements will appear here.",
+        category: "Update",
+        date: "Today",
+        visible: true
+      },
+      {
+        title: "Humidity warning is now available",
+        text: "A visible humidity alert has been added to help highlight uncomfortable or unusually humid conditions.",
+        category: "Weather",
+        date: "Today",
+        visible: true
       }
     ];
 
@@ -2215,7 +2375,12 @@
       unit: "celsius",
       reduceMotion: false,
       glassTransparency: 45,
-      heatNoticeDismissed: false
+      heatNoticeDismissed: false,
+      largeText: false,
+      compactCards: false,
+      showNews: true,
+      showStatus: true,
+      showRadar: true
     };
 
     let settings = loadSettings();
@@ -2234,6 +2399,7 @@
       placesGrid: document.getElementById("places-grid"),
       locationTabs: document.getElementById("location-tabs"),
       lastUpdated: document.getElementById("last-updated"),
+      newsGrid: document.getElementById("news-grid"),
 
       settingsButton: document.getElementById("open-settings"),
       settingsPanel: document.getElementById("settings-panel"),
@@ -2247,6 +2413,11 @@
       motionSetting: document.getElementById("motion-setting"),
       transparencySetting: document.getElementById("transparency-setting"),
       transparencyValue: document.getElementById("transparency-value"),
+      largeTextSetting: document.getElementById("large-text-setting"),
+      compactSetting: document.getElementById("compact-setting"),
+      newsSetting: document.getElementById("news-setting"),
+      statusSetting: document.getElementById("status-setting"),
+      radarSetting: document.getElementById("radar-setting"),
       resetSettings: document.getElementById("reset-settings"),
 
       toast: document.getElementById("toast")
@@ -2323,77 +2494,27 @@
     }
 
     function applyGlassTransparency() {
-  const level = Math.max(
-    0,
-    Math.min(100, Number(settings.glassTransparency) || 0)
-  );
+      const level = Math.max(0, Math.min(100, Number(settings.glassTransparency) || 0));
+      const t = level / 100;
+      const theme = getPreferredTheme();
+      const base = theme === "light" ? "255,255,255" : theme === "midnight" ? "5,12,24" : "255,255,255";
 
-  const t = level / 100;
-  const theme = getPreferredTheme();
+      /* Left side = really transparent and clear, with almost no blur. */
+      const alpha = 0.018 + Math.pow(t, 2.4) * 0.62;
+      const blur = Math.pow(t, 1.7) * 42;
+      const refraction = 1.01 + t * 0.09;
+      const contrast = 1.01 + t * 0.08;
 
-  const base =
-    theme === "light"
-      ? "255,255,255"
-      : theme === "midnight"
-        ? "5,12,24"
-        : "255,255,255";
-
-  /*
-    Strong curve:
-    0 = solid
-    50 = noticeably transparent
-    100 = nearly invisible, highly refractive glass
-  */
-  const alpha = Math.max(0.002, Math.pow(1 - t, 4.2));
-  const blur = 7 + t * 56;
-  const refraction = 1.02 + t * 0.16;
-  const contrast = 1.02 + t * 0.12;
-
-  document.documentElement.style.setProperty(
-    "--glass-bg",
-    `rgba(${base}, ${alpha.toFixed(4)})`
-  );
-
-  document.documentElement.style.setProperty(
-    "--glass-bg-strong",
-    `rgba(${base}, ${Math.min(1, alpha * 1.22).toFixed(4)})`
-  );
-
-  document.documentElement.style.setProperty(
-    "--control-bg",
-    `rgba(${base}, ${Math.min(1, alpha * 1.12).toFixed(4)})`
-  );
-
-  document.documentElement.style.setProperty(
-    "--control-hover",
-    `rgba(${base}, ${Math.min(1, alpha * 1.36 + 0.04).toFixed(4)})`
-  );
-
-  document.documentElement.style.setProperty(
-    "--glass-border",
-    `rgba(255, 255, 255, ${(0.012 + alpha * 0.25).toFixed(4)})`
-  );
-
-  document.documentElement.style.setProperty(
-    "--glass-highlight",
-    `rgba(255, 255, 255, ${(0.01 + alpha * 0.18).toFixed(4)})`
-  );
-
-  document.documentElement.style.setProperty(
-    "--blur",
-    `${blur.toFixed(1)}px`
-  );
-
-  document.documentElement.style.setProperty(
-    "--glass-refraction",
-    refraction.toFixed(3)
-  );
-
-  document.documentElement.style.setProperty(
-    "--glass-contrast",
-    contrast.toFixed(3)
-  );
-}
+      document.documentElement.style.setProperty("--glass-bg", `rgba(${base}, ${alpha.toFixed(4)})`);
+      document.documentElement.style.setProperty("--glass-bg-strong", `rgba(${base}, ${Math.min(0.82, alpha * 1.35).toFixed(4)})`);
+      document.documentElement.style.setProperty("--control-bg", `rgba(${base}, ${Math.min(0.75, alpha * 1.15).toFixed(4)})`);
+      document.documentElement.style.setProperty("--control-hover", `rgba(${base}, ${Math.min(0.9, alpha * 1.38 + 0.04).toFixed(4)})`);
+      document.documentElement.style.setProperty("--glass-border", `rgba(255,255,255,${(0.05 + alpha * 0.28).toFixed(4)})`);
+      document.documentElement.style.setProperty("--glass-highlight", `rgba(255,255,255,${(0.04 + alpha * 0.22).toFixed(4)})`);
+      document.documentElement.style.setProperty("--blur", `${blur.toFixed(1)}px`);
+      document.documentElement.style.setProperty("--glass-refraction", refraction.toFixed(3));
+      document.documentElement.style.setProperty("--glass-contrast", contrast.toFixed(3));
+    }
 
 function applyTheme() {
       const theme = getPreferredTheme();
@@ -2457,6 +2578,11 @@ function applyTheme() {
       elements.motionSetting.checked = settings.reduceMotion;
       elements.transparencySetting.value = settings.glassTransparency;
       elements.transparencyValue.textContent = `${settings.glassTransparency}%`;
+      elements.largeTextSetting.checked = settings.largeText;
+      elements.compactSetting.checked = settings.compactCards;
+      elements.newsSetting.checked = settings.showNews;
+      elements.statusSetting.checked = settings.showStatus;
+      elements.radarSetting.checked = settings.showRadar;
     }
 
     /*
@@ -2557,6 +2683,29 @@ function applyTheme() {
         section === "london"
           ? "London Area"
           : "Somerset";
+    }
+
+    /*
+      ------------------------------------------------------------
+      NEWS
+      ------------------------------------------------------------
+    */
+
+    function renderNews() {
+      elements.newsGrid.innerHTML = "";
+      const visibleNews = newsConfig.filter((item) => item.visible);
+
+      if (visibleNews.length === 0) {
+        elements.newsGrid.innerHTML = `<div class="empty-state glass"><div class="empty-state-icon">📰</div><h3>No news right now</h3><p>New updates will appear here.</p></div>`;
+        return;
+      }
+
+      visibleNews.forEach((item) => {
+        const card = document.createElement("article");
+        card.className = "news-card glass";
+        card.innerHTML = `<div class="news-meta"><span class="news-category">${escapeHTML(item.category || "News")}</span><span>${escapeHTML(item.date || "")}</span></div><h3>${escapeHTML(item.title)}</h3><p>${escapeHTML(item.text)}</p>`;
+        elements.newsGrid.appendChild(card);
+      });
     }
 
     /*
@@ -2832,10 +2981,12 @@ function applyTheme() {
     function applyAllSettings() {
       applyTheme();
 
-      document.body.classList.toggle(
-        "reduce-motion",
-        settings.reduceMotion
-      );
+      document.body.classList.toggle("reduce-motion", settings.reduceMotion);
+      document.body.classList.toggle("large-text", settings.largeText);
+      document.body.classList.toggle("compact-cards", settings.compactCards);
+      document.body.classList.toggle("hide-news", !settings.showNews);
+      document.body.classList.toggle("hide-status", !settings.showStatus);
+      document.body.classList.toggle("hide-radar", !settings.showRadar);
 
       elements.heatNotice.classList.toggle(
         "hidden",
@@ -2971,6 +3122,26 @@ function applyTheme() {
       saveSettings();
     });
 
+    elements.largeTextSetting.addEventListener("change", (event) => {
+      settings.largeText = event.target.checked;
+      document.body.classList.toggle("large-text", settings.largeText);
+      saveSettings();
+    });
+
+    elements.compactSetting.addEventListener("change", (event) => {
+      settings.compactCards = event.target.checked;
+      document.body.classList.toggle("compact-cards", settings.compactCards);
+      saveSettings();
+    });
+
+    [[elements.newsSetting, "showNews", "hide-news"], [elements.statusSetting, "showStatus", "hide-status"], [elements.radarSetting, "showRadar", "hide-radar"]].forEach(([control, key, className]) => {
+      control.addEventListener("change", (event) => {
+        settings[key] = event.target.checked;
+        document.body.classList.toggle(className, !settings[key]);
+        saveSettings();
+      });
+    });
+
     elements.dismissHeat.addEventListener("click", () => {
       settings.heatNoticeDismissed = true;
       elements.heatNotice.classList.add("hidden");
@@ -3066,6 +3237,7 @@ function applyTheme() {
     updateTimeGlow();
     updateScrollShimmer();
     renderWarnings();
+    renderNews();
     syncSettingsControls();
     applyAllSettings();
 
