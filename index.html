@@ -3694,6 +3694,51 @@ function applyTheme() {
       if (adviceElement) adviceElement.textContent = advice;
     }
 
+
+    const GLANCE_SNAPSHOT_KEY = "swLondonInstantGlance";
+    const GLANCE_IDS = ["summary", "health", "travel", "school", "garden", "uk-overview"];
+
+    function saveGlanceSnapshot() {
+      try {
+        const cards = {};
+        GLANCE_IDS.forEach(id => {
+          cards[id] = {
+            value: document.getElementById(`${id}-value`)?.textContent || "",
+            advice: document.getElementById(`${id}-advice`)?.textContent || ""
+          };
+        });
+        localStorage.setItem(GLANCE_SNAPSHOT_KEY, JSON.stringify({
+          savedAt: Date.now(),
+          cards,
+          uv: document.getElementById("uv-value")?.textContent || "",
+          uvAdvice: document.getElementById("uv-advice")?.textContent || "",
+          moon: document.getElementById("moon-info")?.textContent || ""
+        }));
+      } catch (error) {
+        console.warn("Could not save instant glance:", error);
+      }
+    }
+
+    function restoreGlanceSnapshot() {
+      try {
+        const snapshot = JSON.parse(localStorage.getItem(GLANCE_SNAPSHOT_KEY) || "null");
+        if (!snapshot?.cards) return false;
+        GLANCE_IDS.forEach(id => {
+          const card = snapshot.cards[id];
+          if (card?.value || card?.advice) setInsight(id, card.value || "—", card.advice || "Updating quietly in the background…");
+        });
+        if (snapshot.uv) document.getElementById("uv-value").textContent = snapshot.uv;
+        if (snapshot.uvAdvice) document.getElementById("uv-advice").textContent = snapshot.uvAdvice;
+        if (snapshot.moon) document.getElementById("moon-info").textContent = snapshot.moon;
+        const ageMinutes = Math.max(0, Math.round((Date.now() - Number(snapshot.savedAt || Date.now())) / 60000));
+        const status = document.getElementById("smart-glance-updated");
+        if (status) status.textContent = ageMinutes < 1 ? "Showing saved insights · refreshing now" : `Showing saved insights from ${ageMinutes} min ago · refreshing now`;
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+
     function buildLocalInsights(place, weather) {
       const daily = weather.daily || {};
       const hourly = weather.hourly || {};
@@ -3744,6 +3789,7 @@ function applyTheme() {
       renderCalendar(daily);
       renderStatistics(daily, hourly);
       applyLiveWeatherExperience(weather);
+      saveGlanceSnapshot();
     }
 
     const UK_OVERVIEW_CACHE_MS = 30 * 60 * 1000;
@@ -3751,7 +3797,7 @@ function applyTheme() {
     let ukOverviewCacheTime = 0;
     let ukOverviewRequest = null;
 
-    async function fetchWithTimeout(url, timeoutMs = 6500) {
+    async function fetchWithTimeout(url, timeoutMs = 2200) {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), timeoutMs);
       try {
@@ -3807,7 +3853,10 @@ function applyTheme() {
       const refreshButton = document.getElementById("refresh-smart-glance");
       if (refreshButton) { refreshButton.disabled = true; refreshButton.textContent = "Updating…"; }
       try {
-        setInsight("uk-overview", "UK", "Loading the latest UK-wide overview in the background…");
+        const existingOverview = document.getElementById("uk-overview-advice")?.textContent || "";
+        if (!existingOverview || existingOverview.includes("Checking conditions") || existingOverview.includes("Loading the latest")) {
+          setInsight("uk-overview", "UK", "Refreshing the UK overview quietly in the background…");
+        }
         const regions = await fetchUKOverview(showConfirmation);
         const warmest = regions.reduce((a, b) => b.high > a.high ? b : a);
         const coolest = regions.reduce((a, b) => b.low < a.low ? b : a);
@@ -3820,11 +3869,15 @@ function applyTheme() {
         const updated = new Date();
         const stamp = updated.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
         document.getElementById("smart-glance-updated").textContent = `Auto-updated at ${stamp} · Refreshes every 30 minutes`;
+        saveGlanceSnapshot();
         if (showConfirmation) showToast("Smart UK insights updated");
       } catch (error) {
         console.error("Could not update UK smart insights:", error);
-        setInsight("uk-overview", "UK", "The UK-wide overview is temporarily unavailable, but your local guidance remains current.");
-        document.getElementById("smart-glance-updated").textContent = "Local insights updated · UK overview unavailable";
+        const currentAdvice = document.getElementById("uk-overview-advice")?.textContent || "";
+        if (!currentAdvice || currentAdvice.includes("Checking conditions") || currentAdvice.includes("Refreshing the UK")) {
+          setInsight("uk-overview", "UK", "Your local insights are ready. The UK overview will retry automatically.");
+        }
+        document.getElementById("smart-glance-updated").textContent = "Local insights ready · UK overview will retry";
       } finally {
         smartGlanceBusy = false;
         if (refreshButton) { refreshButton.disabled = false; refreshButton.textContent = "↻ Refresh insights"; }
@@ -4490,6 +4543,7 @@ function applyTheme() {
       ------------------------------------------------------------
     */
 
+    restoreGlanceSnapshot();
     updateTimeGlow();
     updateScrollShimmer();
     setupFavourites();
