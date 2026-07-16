@@ -1804,27 +1804,7 @@
 
 
 
-    /* Full-page colour filters: tint the entire interface, not only accents */
-    .full-page-colour-wash {
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      pointer-events: none;
-      opacity: 0;
-      background: transparent;
-      mix-blend-mode: color;
-      transition: opacity 0.3s ease, background 0.3s ease;
-    }
-
-    body.colour-filter-red .full-page-colour-wash { background: #ef4444; opacity: 0.72; }
-    body.colour-filter-orange .full-page-colour-wash { background: #f97316; opacity: 0.72; }
-    body.colour-filter-yellow .full-page-colour-wash { background: #facc15; opacity: 0.68; }
-    body.colour-filter-green .full-page-colour-wash { background: #22c55e; opacity: 0.72; }
-    body.colour-filter-blue .full-page-colour-wash { background: #3b82f6; opacity: 0.72; }
-    body.colour-filter-indigo .full-page-colour-wash { background: #6366f1; opacity: 0.72; }
-    body.colour-filter-violet .full-page-colour-wash { background: #a855f7; opacity: 0.72; }
-
-    /* Make every major surface visibly follow the selected colour */
+    /* Stable full-interface colour filters without a high-z-index overlay. */
     body[class*="colour-filter-"] .glass,
     body[class*="colour-filter-"] .settings-panel,
     body[class*="colour-filter-"] .toast,
@@ -1833,19 +1813,16 @@
     body[class*="colour-filter-"] .setting-row,
     body[class*="colour-filter-"] .switch-track,
     body[class*="colour-filter-"] button {
-      border-color: color-mix(in srgb, var(--accent) 58%, white 22%);
-      box-shadow:
-        0 22px 70px color-mix(in srgb, var(--accent) 24%, transparent),
-        inset 0 1px 0 rgba(255,255,255,.22);
+      border-color: rgba(255,255,255,.28);
     }
 
-    body.colour-filter-red { --page-bg: radial-gradient(circle at 18% 12%, rgba(255,120,120,.52), transparent 35%), linear-gradient(150deg,#260609,#5a1017 52%,#21070a); }
-    body.colour-filter-orange { --page-bg: radial-gradient(circle at 18% 12%, rgba(255,180,95,.52), transparent 35%), linear-gradient(150deg,#281006,#652a0b 52%,#231006); }
-    body.colour-filter-yellow { --page-bg: radial-gradient(circle at 18% 12%, rgba(255,238,110,.5), transparent 35%), linear-gradient(150deg,#292305,#66590c 52%,#211c04); }
-    body.colour-filter-green { --page-bg: radial-gradient(circle at 18% 12%, rgba(100,255,160,.48), transparent 35%), linear-gradient(150deg,#052315,#0d5d35 52%,#041d11); }
-    body.colour-filter-blue { --page-bg: radial-gradient(circle at 18% 12%, rgba(100,175,255,.52), transparent 35%), linear-gradient(150deg,#06152b,#123f78 52%,#071329); }
-    body.colour-filter-indigo { --page-bg: radial-gradient(circle at 18% 12%, rgba(145,145,255,.52), transparent 35%), linear-gradient(150deg,#0e0b2d,#292775 52%,#0b0926); }
-    body.colour-filter-violet { --page-bg: radial-gradient(circle at 18% 12%, rgba(215,130,255,.52), transparent 35%), linear-gradient(150deg,#23082f,#5d1674 52%,#1c0627); }
+    body.colour-filter-red { --page-bg: radial-gradient(circle at 18% 12%, rgba(255,120,120,.42), transparent 35%), linear-gradient(150deg,#260609,#5a1017 52%,#21070a); --glass-bg:rgba(239,68,68,.12); --glass-bg-strong:rgba(239,68,68,.18); --control-bg:rgba(239,68,68,.12); }
+    body.colour-filter-orange { --page-bg: radial-gradient(circle at 18% 12%, rgba(255,180,95,.42), transparent 35%), linear-gradient(150deg,#281006,#652a0b 52%,#231006); --glass-bg:rgba(249,115,22,.12); --glass-bg-strong:rgba(249,115,22,.18); --control-bg:rgba(249,115,22,.12); }
+    body.colour-filter-yellow { --page-bg: radial-gradient(circle at 18% 12%, rgba(255,238,110,.38), transparent 35%), linear-gradient(150deg,#292305,#66590c 52%,#211c04); --glass-bg:rgba(250,204,21,.11); --glass-bg-strong:rgba(250,204,21,.17); --control-bg:rgba(250,204,21,.11); }
+    body.colour-filter-green { --page-bg: radial-gradient(circle at 18% 12%, rgba(100,255,160,.38), transparent 35%), linear-gradient(150deg,#052315,#0d5d35 52%,#041d11); --glass-bg:rgba(34,197,94,.12); --glass-bg-strong:rgba(34,197,94,.18); --control-bg:rgba(34,197,94,.12); }
+    body.colour-filter-blue { --page-bg: radial-gradient(circle at 18% 12%, rgba(100,175,255,.42), transparent 35%), linear-gradient(150deg,#06152b,#123f78 52%,#071329); --glass-bg:rgba(59,130,246,.12); --glass-bg-strong:rgba(59,130,246,.18); --control-bg:rgba(59,130,246,.12); }
+    body.colour-filter-indigo { --page-bg: radial-gradient(circle at 18% 12%, rgba(145,145,255,.42), transparent 35%), linear-gradient(150deg,#0e0b2d,#292775 52%,#0b0926); --glass-bg:rgba(99,102,241,.12); --glass-bg-strong:rgba(99,102,241,.18); --control-bg:rgba(99,102,241,.12); }
+    body.colour-filter-violet { --page-bg: radial-gradient(circle at 18% 12%, rgba(215,130,255,.42), transparent 35%), linear-gradient(150deg,#23082f,#5d1674 52%,#1c0627); --glass-bg:rgba(168,85,247,.12); --glass-bg-strong:rgba(168,85,247,.18); --control-bg:rgba(168,85,247,.12); }
 
     body.colour-blind-friendly {
       --text-secondary: rgba(245,248,255,.84);
@@ -1875,6 +1852,39 @@
       outline: 2px solid rgba(255,255,255,.58);
       outline-offset: 2px;
     }
+
+    /* Performance and smoother interactions */
+    .nav-actions { display:flex; align-items:center; gap:9px; }
+    .quick-action-button {
+      display:grid; place-items:center; width:44px; height:44px; cursor:pointer;
+      color:var(--text-primary); border:1px solid var(--glass-border); border-radius:50%;
+      background:var(--control-bg); transition:transform .22s ease, background .22s ease, opacity .22s ease;
+    }
+    .quick-action-button:hover { transform:translateY(-1px) scale(1.04); background:var(--control-hover); }
+    .quick-action-button.refreshing { animation:spin .8s linear infinite; pointer-events:none; }
+    .back-to-top {
+      position:fixed; right:22px; bottom:22px; z-index:120; width:48px; height:48px;
+      display:grid; place-items:center; border:1px solid var(--glass-border); border-radius:50%;
+      color:var(--text-primary); background:var(--glass-bg-strong); box-shadow:var(--shadow);
+      cursor:pointer; opacity:0; visibility:hidden; transform:translateY(12px);
+      transition:opacity .25s ease, visibility .25s ease, transform .25s ease;
+      -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px);
+    }
+    .back-to-top.show { opacity:1; visibility:visible; transform:translateY(0); }
+    body.no-sticky-nav .top-nav { position:relative; top:auto; }
+    body.performance-mode { background-attachment:scroll; }
+    body.performance-mode .glass::before, body.performance-mode .glass::after { display:none; }
+    body.performance-mode .weather-card.glass { animation:none; }
+    body.performance-mode .glass {
+      -webkit-backdrop-filter:blur(12px) saturate(135%);
+      backdrop-filter:blur(12px) saturate(135%);
+      box-shadow:0 14px 38px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.12);
+    }
+    body.smooth-mode .glass, body.smooth-mode button, body.smooth-mode .settings-panel {
+      transition-duration:.22s !important;
+    }
+    body.full-effects .weather-card.glass:nth-child(2n), body.full-effects .weather-card.glass:nth-child(2n + 1) { animation-play-state:running; }
+    @media (max-width:580px) { .nav-actions { gap:6px; } .quick-action-button { width:42px; height:42px; } .back-to-top { right:12px; bottom:12px; } }
 
     /* Reduced motion */
 
@@ -2061,7 +2071,6 @@
 </head>
 
 <body>
-  <div class="full-page-colour-wash" aria-hidden="true"></div>
   <div class="container">
     <nav class="top-nav glass">
       <div class="brand">
@@ -2076,6 +2085,9 @@
           </div>
         </div>
       </div>
+
+      <div class="nav-actions">
+        <button class="quick-action-button" id="refresh-weather" type="button" aria-label="Refresh weather" title="Refresh weather">↻</button>
 
       <button
         class="settings-button"
@@ -2099,6 +2111,7 @@
           ></path>
         </svg>
       </button>
+      </div>
     </nav>
 
     <header class="hero glass">
@@ -2410,6 +2423,30 @@
       </div>
     </div>
 
+
+    <div class="settings-group">
+      <div class="settings-group-title">Smoothness & behaviour</div>
+
+      <label class="setting-row">
+        <span class="setting-copy"><strong>Animation quality</strong><span>Choose smoother performance or richer effects.</span></span>
+        <select id="animation-quality-setting" class="glass-select" aria-label="Animation quality">
+          <option value="performance">Performance</option>
+          <option value="balanced">Balanced</option>
+          <option value="full">Full effects</option>
+        </select>
+      </label>
+
+      <label class="setting-row">
+        <span class="setting-copy"><strong>Automatic weather refresh</strong><span>Refresh the visible forecast every 15 minutes.</span></span>
+        <span class="switch"><input type="checkbox" id="auto-refresh-setting" checked><span class="switch-track"></span></span>
+      </label>
+
+      <label class="setting-row">
+        <span class="setting-copy"><strong>Sticky top bar</strong><span>Keep the navigation visible while you scroll.</span></span>
+        <span class="switch"><input type="checkbox" id="sticky-nav-setting" checked><span class="switch-track"></span></span>
+      </label>
+    </div>
+
     <div class="settings-group">
       <div class="settings-group-title">Forecast areas</div>
 
@@ -2493,6 +2530,8 @@
       Restore default settings
     </button>
   </aside>
+
+  <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
 
   <div
     class="toast"
@@ -2671,7 +2710,10 @@
       showRadar: true,
       phoneFit: false,
       colourBlindFriendly: false,
-      colourFilter: "none"
+      colourFilter: "none",
+      animationQuality: "balanced",
+      autoRefresh: true,
+      stickyNav: true
     };
 
     let settings = loadSettings();
@@ -2712,6 +2754,11 @@
       phoneFitSetting: document.getElementById("phone-fit-setting"),
       colourBlindSetting: document.getElementById("colour-blind-setting"),
       colourFilterButtons: document.querySelectorAll("[data-colour-filter]"),
+      animationQualitySetting: document.getElementById("animation-quality-setting"),
+      autoRefreshSetting: document.getElementById("auto-refresh-setting"),
+      stickyNavSetting: document.getElementById("sticky-nav-setting"),
+      refreshWeather: document.getElementById("refresh-weather"),
+      backToTop: document.getElementById("back-to-top"),
       resetSettings: document.getElementById("reset-settings"),
 
       toast: document.getElementById("toast")
@@ -2881,6 +2928,9 @@ function applyTheme() {
       elements.phoneFitSetting.setAttribute("aria-pressed", String(settings.phoneFit));
       elements.phoneFitSetting.textContent = settings.phoneFit ? "Phone fitted" : "Fit phone";
       elements.colourBlindSetting.checked = settings.colourBlindFriendly;
+      elements.animationQualitySetting.value = settings.animationQuality;
+      elements.autoRefreshSetting.checked = settings.autoRefresh;
+      elements.stickyNavSetting.checked = settings.stickyNav;
       elements.colourFilterButtons.forEach((button) => {
         button.setAttribute("aria-pressed", String(button.dataset.colourFilter === settings.colourFilter));
       });
@@ -3307,10 +3357,18 @@ function applyTheme() {
       });
     }
 
+    function applySmoothnessSettings() {
+      document.body.classList.toggle("performance-mode", settings.animationQuality === "performance");
+      document.body.classList.toggle("smooth-mode", settings.animationQuality === "balanced");
+      document.body.classList.toggle("full-effects", settings.animationQuality === "full");
+      document.body.classList.toggle("no-sticky-nav", !settings.stickyNav);
+    }
+
     function applyAllSettings() {
       applyTheme();
       applyPhoneFit();
       applyColourAccessibility();
+      applySmoothnessSettings();
 
       document.body.classList.toggle("reduce-motion", settings.reduceMotion);
       document.body.classList.toggle("large-text", settings.largeText);
@@ -3497,6 +3555,38 @@ function applyTheme() {
       });
     });
 
+    elements.animationQualitySetting.addEventListener("change", (event) => {
+      settings.animationQuality = event.target.value;
+      applySmoothnessSettings();
+      saveSettings();
+    });
+
+    elements.autoRefreshSetting.addEventListener("change", (event) => {
+      settings.autoRefresh = event.target.checked;
+      saveSettings();
+    });
+
+    elements.stickyNavSetting.addEventListener("change", (event) => {
+      settings.stickyNav = event.target.checked;
+      applySmoothnessSettings();
+      saveSettings();
+    });
+
+    elements.refreshWeather.addEventListener("click", async () => {
+      elements.refreshWeather.classList.add("refreshing");
+      await renderSection(activeSection);
+      elements.refreshWeather.classList.remove("refreshing");
+      showToast("Weather refreshed");
+    });
+
+    elements.backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: settings.reduceMotion ? "auto" : "smooth" });
+    });
+
+    window.addEventListener("scroll", () => {
+      elements.backToTop.classList.toggle("show", window.scrollY > 520);
+    }, { passive: true });
+
     elements.dismissHeat.addEventListener("click", () => {
       settings.heatNoticeDismissed = true;
       elements.heatNotice.classList.add("hidden");
@@ -3601,6 +3691,7 @@ function applyTheme() {
     */
 
     setInterval(() => {
+      if (!settings.autoRefresh) return;
       const visibleSections = getVisibleSections();
 
       if (visibleSections.length > 0) {
