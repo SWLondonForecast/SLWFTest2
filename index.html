@@ -2067,10 +2067,88 @@
         height: 470px;
       }
     }
+
+
+    /* Ultimate weather experience */
+    .premium-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+    .premium-card { padding:22px; border-radius:var(--radius-medium); min-height:160px; }
+    .premium-card h3 { font-size:.78rem; text-transform:uppercase; letter-spacing:.1em; color:var(--text-muted); }
+    .premium-value { margin-top:12px; font-size:2rem; font-weight:700; letter-spacing:-.05em; }
+    .premium-sub { margin-top:7px; color:var(--text-secondary); font-size:.82rem; line-height:1.5; }
+    .hourly-strip { display:grid; grid-template-columns:repeat(8,minmax(72px,1fr)); gap:10px; overflow-x:auto; padding-bottom:5px; }
+    .hour-chip { padding:14px 10px; border:1px solid var(--glass-border); border-radius:18px; background:var(--control-bg); text-align:center; }
+    .hour-chip strong,.hour-chip span { display:block; }
+    .hour-chip span { margin-top:6px; color:var(--text-secondary); font-size:.76rem; }
+    .rain-bar { height:7px; margin-top:10px; border-radius:999px; background:rgba(255,255,255,.1); overflow:hidden; }
+    .rain-bar i { display:block; height:100%; background:var(--accent); border-radius:inherit; }
+    .map-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+    .map-tab { padding:10px 15px; border:1px solid var(--glass-border); border-radius:999px; color:var(--text-secondary); background:var(--control-bg); cursor:pointer; }
+    .map-tab.active { color:var(--text-primary); background:var(--glass-bg-strong); box-shadow:inset 0 1px 0 rgba(255,255,255,.2); }
+    .map-frame { height:590px; }
+    .favourites-toolbar,.news-tools { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px; }
+    .favourites-toolbar select,.news-tools input { flex:1; min-width:180px; padding:12px 14px; border:1px solid var(--glass-border); border-radius:15px; color:var(--text-primary); background:var(--control-bg); }
+    .glass-action { padding:11px 15px; border:1px solid var(--glass-border); border-radius:15px; color:var(--text-primary); background:var(--control-bg); cursor:pointer; }
+    .favourite-list { display:flex; flex-wrap:wrap; gap:10px; }
+    .favourite-chip { display:flex; align-items:center; gap:8px; padding:10px 13px; border:1px solid var(--glass-border); border-radius:999px; background:var(--control-bg); }
+    .favourite-chip button { border:0; color:var(--text-secondary); background:transparent; cursor:pointer; }
+    .calendar-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:9px; }
+    .calendar-day { min-height:90px; padding:11px; border:1px solid var(--glass-border); border-radius:17px; background:var(--control-bg); }
+    .calendar-day strong,.calendar-day span { display:block; }
+    .calendar-day span { margin-top:7px; color:var(--text-secondary); font-size:.75rem; }
+    .wallpaper-options { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; width:170px; }
+    .wallpaper-button { height:34px; border:2px solid transparent; border-radius:12px; cursor:pointer; }
+    .wallpaper-button[aria-pressed="true"] { border-color:white; box-shadow:0 0 0 2px var(--accent); }
+    .wallpaper-blue{background:linear-gradient(135deg,#246bfe,#66dcff)} .wallpaper-sunset{background:linear-gradient(135deg,#ff8a55,#8057ff)} .wallpaper-aurora{background:linear-gradient(135deg,#14cba8,#5848d8)} .wallpaper-ocean{background:linear-gradient(135deg,#006b91,#48c9d7)} .wallpaper-stars{background:linear-gradient(135deg,#020611,#25336f)} .wallpaper-white{background:linear-gradient(135deg,#fff,#d7e8ff)}
+    body.wallpaper-sunset { --page-bg:radial-gradient(circle at 15% 12%,rgba(255,196,90,.5),transparent 35%),radial-gradient(circle at 85% 30%,rgba(195,87,255,.4),transparent 38%),linear-gradient(145deg,#291044,#873765,#fc865b); }
+    body.wallpaper-aurora { --page-bg:radial-gradient(circle at 20% 15%,rgba(61,255,197,.42),transparent 38%),radial-gradient(circle at 80% 25%,rgba(121,84,255,.45),transparent 36%),linear-gradient(145deg,#041c2b,#0d4f4f,#181333); }
+    body.wallpaper-ocean { --page-bg:radial-gradient(circle at 20% 10%,rgba(105,231,255,.35),transparent 35%),linear-gradient(160deg,#00334d,#075b70,#0e8895); }
+    body.wallpaper-stars { --page-bg:radial-gradient(circle at 18% 14%,rgba(117,142,255,.22),transparent 32%),radial-gradient(circle at 78% 20%,rgba(255,255,255,.09),transparent 2%),linear-gradient(160deg,#01030a,#071229,#11183a); }
+    body.wallpaper-white { --page-bg:linear-gradient(145deg,#ffffff,#dcebff,#eff5ff); }
+    body.weather-sunny::before { background:rgba(255,205,70,.25); }
+    body.weather-rainy::after { background:rgba(42,126,255,.25); }
+    body.weather-cold .container::after { content:""; position:fixed; inset:0; pointer-events:none; z-index:120; border:10px solid rgba(211,241,255,.14); box-shadow:inset 0 0 45px rgba(211,241,255,.18); }
+    body.weather-hot .hero { filter:saturate(1.08); }
+    .weather-particles { position:fixed; inset:0; pointer-events:none; z-index:-1; overflow:hidden; }
+    .weather-particles span { position:absolute; top:-20px; opacity:.35; animation:weatherFall linear infinite; }
+    @keyframes weatherFall { to { transform:translate3d(40px,110vh,0); } }
+    .rainbow-arc { display:none; position:fixed; right:4%; top:110px; width:130px; height:65px; border-radius:130px 130px 0 0; background:linear-gradient(180deg,#f55 0 14%,#fa3 14% 28%,#fd5 28% 42%,#4d8 42% 56%,#4af 56% 70%,#65c 70% 84%,#a5c 84%); opacity:.28; filter:blur(1px); pointer-events:none; }
+    body.show-rainbow .rainbow-arc { display:block; }
+    .moon-orb { width:58px; height:58px; margin-top:13px; border-radius:50%; background:radial-gradient(circle at 35% 35%,#fff,#dce8ff 55%,#8290a8); box-shadow:0 0 28px rgba(190,220,255,.25); }
+    .news-card.hidden-by-search { display:none; }
+    @media(max-width:950px){.premium-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:580px){.premium-grid{grid-template-columns:1fr}.map-frame{height:470px}.calendar-grid{grid-template-columns:repeat(2,1fr)}.wallpaper-options{width:145px}.hourly-strip{grid-template-columns:repeat(8,78px)}}
+
+  
+    /* ===== SWLondon Forecast 2.0: spectacular features + ultra performance ===== */
+    .v2-section{margin-top:58px}.v2-header{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:18px}.v2-header h2{margin-top:6px;font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.045em}
+    .v2-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.v2-card{padding:22px;border-radius:var(--radius-medium)}.v2-card h3{font-size:1rem}.v2-card p{margin-top:7px;color:var(--text-secondary);font-size:.85rem;line-height:1.55}
+    .dynamic-island{position:sticky;top:82px;z-index:55;width:min(560px,calc(100% - 30px));margin:14px auto 0;padding:11px 16px;border-radius:999px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:width .28s ease,border-radius .28s ease,padding .28s ease}
+    .dynamic-island.expanded{width:min(760px,calc(100% - 24px));border-radius:24px;padding:18px}.island-icon{font-size:1.2rem}.island-copy{flex:1;min-width:0}.island-copy strong,.island-copy span{display:block}.island-copy span{margin-top:2px;color:var(--text-secondary);font-size:.77rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.island-extra{display:none;margin-top:10px;color:var(--text-secondary);line-height:1.5}.dynamic-island.expanded .island-extra{display:block}
+    .earth-shell{display:grid;grid-template-columns:minmax(250px,.85fr) 1.15fr;gap:20px;align-items:center}.earth{width:min(330px,80vw);aspect-ratio:1;margin:auto;border-radius:50%;position:relative;cursor:grab;background:radial-gradient(circle at 33% 28%,rgba(255,255,255,.8) 0 2%,transparent 3%),radial-gradient(circle at 34% 34%,#5ed6ff 0 16%,#177dbd 46%,#082c59 76%);box-shadow:inset -35px -22px 55px rgba(0,0,0,.48),0 0 55px var(--glass-glow);overflow:hidden;touch-action:none}.earth::before{content:"";position:absolute;inset:9%;border-radius:48% 52% 45% 55%;background:conic-gradient(from var(--earth-rotation,0deg),transparent 0 10%,#57c78d 11% 19%,transparent 20% 28%,#76d99a 29% 38%,transparent 39% 53%,#4bb67e 54% 67%,transparent 68% 82%,#6bd093 83% 92%,transparent 93%);filter:blur(2px);transform:rotate(var(--earth-rotation,0deg))}.earth::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.42),transparent 48%,rgba(255,255,255,.12));border-radius:50%}
+    .earth-controls{display:grid;gap:10px}.earth-location{padding:14px;border:1px solid var(--glass-border);border-radius:17px;background:var(--control-bg);cursor:pointer;text-align:left;color:var(--text-primary)}.earth-location.active{outline:2px solid var(--accent)}
+    .sky-window{height:300px;border-radius:28px;position:relative;overflow:hidden;background:linear-gradient(#5bb9ff,#d6efff 68%,#8abf6f 69%);transition:background 1s ease}.sky-window.night{background:linear-gradient(#020615,#101d4a 68%,#122412 69%)}.sky-sun,.sky-moon{position:absolute;width:72px;height:72px;border-radius:50%;top:40px;left:12%;box-shadow:0 0 38px currentColor}.sky-sun{background:#ffe477;color:#ffe477}.sky-moon{background:#e8efff;color:#a7c0ff;display:none}.sky-window.night .sky-sun{display:none}.sky-window.night .sky-moon{display:block}.cloud{position:absolute;width:120px;height:36px;border-radius:999px;background:rgba(255,255,255,.72);filter:blur(1px);animation:cloudDrift 18s linear infinite}.cloud::before,.cloud::after{content:"";position:absolute;border-radius:50%;background:inherit}.cloud::before{width:52px;height:52px;left:18px;bottom:4px}.cloud::after{width:64px;height:64px;right:12px;bottom:0}.cloud.c1{top:80px;left:-140px}.cloud.c2{top:145px;left:-220px;animation-duration:25s;animation-delay:-9s;opacity:.6}@keyframes cloudDrift{to{transform:translateX(calc(100vw + 400px))}}
+    .droplet-layer,.snow-layer,.star-layer{position:absolute;inset:0;pointer-events:none}.drop{position:absolute;width:3px;height:35px;border-radius:999px;background:linear-gradient(transparent,rgba(180,225,255,.7));animation:dropFall 1.2s linear infinite}@keyframes dropFall{to{transform:translateY(360px)}}.star{position:absolute;width:2px;height:2px;border-radius:50%;background:white;animation:twinkle 2s ease-in-out infinite alternate}@keyframes twinkle{to{opacity:.2;transform:scale(.5)}}.shooting-star{position:absolute;width:80px;height:2px;background:linear-gradient(90deg,white,transparent);transform:rotate(-25deg);animation:shoot 6s ease-in infinite}@keyframes shoot{0%,70%{opacity:0;transform:translate(-100px,-30px) rotate(-25deg)}75%{opacity:1}100%{opacity:0;transform:translate(520px,230px) rotate(-25deg)}}
+    .storm-card{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}.storm-eta{font-size:2.3rem;font-weight:700}.compass{width:150px;height:150px;border:1px solid var(--glass-border);border-radius:50%;position:relative;background:var(--control-bg)}.compass::before{content:"N";position:absolute;top:8px;left:50%;transform:translateX(-50%);font-weight:700}.compass-needle{position:absolute;left:50%;top:50%;width:5px;height:58px;border-radius:999px;background:linear-gradient(var(--accent) 0 50%,rgba(255,255,255,.5) 50%);transform-origin:50% 100%;transform:translate(-50%,-100%) rotate(35deg)}
+    .widget-board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.move-widget{min-height:130px;padding:18px;border-radius:22px;cursor:grab}.move-widget.dragging{opacity:.45}.move-widget .handle{float:right;color:var(--text-muted)}
+    .mode-tabs{display:flex;gap:8px;flex-wrap:wrap}.mode-tab{padding:10px 13px;border-radius:999px;border:1px solid var(--glass-border);background:var(--control-bg);color:var(--text-secondary);cursor:pointer}.mode-tab.active{color:var(--text-primary);background:var(--glass-bg-strong)}
+    .camera-panel{height:300px;border-radius:24px;display:grid;place-items:center;text-align:center;background:linear-gradient(145deg,rgba(60,140,220,.4),rgba(10,25,55,.8));overflow:hidden}.camera-panel .camera-scene{font-size:5rem}.camera-note{color:var(--text-secondary);font-size:.8rem;margin-top:8px}
+    .game-area{height:260px;border-radius:24px;position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(80,170,255,.25),rgba(10,30,60,.32));border:1px solid var(--glass-border)}.game-item{position:absolute;font-size:1.8rem;cursor:pointer;user-select:none;animation:gameFall 4s linear forwards}@keyframes gameFall{to{transform:translateY(280px)}}.game-score{display:flex;justify-content:space-between;margin-bottom:10px}
+    .memory-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.memory-day{min-height:72px;padding:9px;border-radius:15px;border:1px solid var(--glass-border);background:var(--control-bg);font-size:.75rem}.memory-day span{display:block;margin-top:6px;font-size:1.4rem}
+    .smart-list{display:grid;gap:10px}.smart-item{display:flex;gap:12px;padding:13px;border-radius:16px;background:var(--control-bg);border:1px solid var(--glass-border)}.smart-item strong,.smart-item span{display:block}.smart-item span{margin-top:3px;color:var(--text-secondary);font-size:.78rem}
+    .lock-preview{width:min(300px,100%);margin:auto;padding:26px 20px;border-radius:38px;border:2px solid var(--glass-border);background:linear-gradient(160deg,rgba(10,35,68,.7),rgba(32,69,120,.38));text-align:center}.lock-time{font-size:3.8rem;font-weight:300}.lock-widget{margin-top:24px;padding:18px;border-radius:23px;background:var(--glass-bg-strong);border:1px solid var(--glass-border)}
+    .window-mode{min-height:270px;border-radius:28px;position:relative;overflow:hidden;background:linear-gradient(150deg,rgba(95,185,255,.45),rgba(15,55,100,.55));border:8px solid rgba(20,30,45,.65)}.window-mode::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:7px;background:rgba(20,30,45,.65)}.window-mode::after{content:"";position:absolute;top:50%;left:0;right:0;height:7px;background:rgba(20,30,45,.65)}.window-condensation{position:absolute;inset:0;background:radial-gradient(circle at 25% 35%,rgba(255,255,255,.28),transparent 20%),radial-gradient(circle at 75% 60%,rgba(255,255,255,.22),transparent 24%);filter:blur(8px)}
+    .ultra-performance .dynamic-island,.ultra-performance .glass,.ultra-performance .settings-panel,.ultra-performance .toast{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(12,24,42,.94)!important;box-shadow:0 8px 22px rgba(0,0,0,.2)!important}.ultra-performance *{animation:none!important;transition:none!important}.ultra-performance body::before,.ultra-performance body::after,.ultra-performance .droplet-layer,.ultra-performance .snow-layer,.ultra-performance .star-layer,.ultra-performance .cloud,.ultra-performance .shooting-star{display:none!important}.ultra-performance iframe{visibility:hidden}.ultra-performance .map-frame::after{content:"Map paused in Ultra Performance mode";display:grid;place-items:center;height:250px;color:var(--text-secondary)}
+    body.focus-mode .v2-section:not(#personal-dashboard),body.focus-mode #status-section,body.focus-mode #radar-section,body.focus-mode #news-section{display:none}
+    .setting-note{padding:12px 13px;color:var(--text-muted);font-size:.73rem;line-height:1.5}
+    @media(max-width:900px){.v2-grid,.widget-board{grid-template-columns:repeat(2,minmax(0,1fr))}.earth-shell{grid-template-columns:1fr}.premium-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:580px){.dynamic-island{top:68px}.v2-grid,.widget-board{grid-template-columns:1fr}.memory-grid{grid-template-columns:repeat(4,1fr)}.storm-card{grid-template-columns:1fr}.v2-header{align-items:stretch;flex-direction:column}}
+
   </style>
 </head>
 
 <body>
+  <div class="weather-particles" id="weather-particles" aria-hidden="true"></div>
+  <div class="rainbow-arc" aria-hidden="true"></div>
   <div class="container">
     <nav class="top-nav glass">
       <div class="brand">
@@ -2220,7 +2298,54 @@
           <span class="external-label">Local forecast updates</span>
         </div>
 
-        <div class="news-grid" id="news-grid"></div>
+        <div class="news-tools"><input id="news-search" type="search" placeholder="Search news…" aria-label="Search news"><button class="glass-action" id="clear-news-search" type="button">Clear</button></div><div class="news-grid" id="news-grid"></div>
+      </section>
+
+
+      <section class="embed-section" id="smart-dashboard-section">
+        <div class="embed-header"><div><div class="section-label">Smart weather</div><h2>Today at a glance</h2></div><span class="external-label">Live personalised insights</span></div>
+        <div class="premium-grid">
+          <article class="premium-card glass"><h3>UV index</h3><div class="premium-value" id="uv-value">—</div><div class="premium-sub" id="uv-advice">Loading UV guidance…</div></article>
+          <article class="premium-card glass"><h3>Air quality</h3><div class="premium-value" id="aqi-value">—</div><div class="premium-sub" id="aqi-advice">Loading air quality…</div></article>
+          <article class="premium-card glass"><h3>Moon</h3><div class="moon-orb"></div><div class="premium-sub" id="moon-info">Calculating moon phase…</div></article>
+          <article class="premium-card glass"><h3>Weather summary</h3><div class="premium-value" id="summary-value">—</div><div class="premium-sub" id="summary-advice">Preparing today’s summary…</div></article>
+        </div>
+      </section>
+
+      <section class="embed-section" id="hourly-section">
+        <div class="embed-header"><div><div class="section-label">Next few hours</div><h2>Rain chance timeline</h2></div><span class="external-label">Hourly forecast</span></div>
+        <div class="iframe-shell glass"><div class="hourly-strip" id="hourly-strip"></div></div>
+      </section>
+
+      <section class="embed-section" id="favourites-section">
+        <div class="embed-header"><div><div class="section-label">Your places</div><h2>Favourite locations</h2></div><span class="external-label">Tap a place to view it</span></div>
+        <div class="iframe-shell glass">
+          <div class="favourites-toolbar"><select id="favourite-select" aria-label="Choose a favourite location"></select><button class="glass-action" id="add-favourite" type="button">＋ Add location</button></div>
+          <div class="favourite-list" id="favourite-list"></div>
+        </div>
+      </section>
+
+      <section class="embed-section" id="weather-calendar-section">
+        <div class="embed-header"><div><div class="section-label">Seven-day outlook</div><h2>Weather calendar</h2></div><span class="external-label">Daily overview</span></div>
+        <div class="calendar-grid" id="weather-calendar"></div>
+      </section>
+
+      <section class="embed-section" id="statistics-section">
+        <div class="embed-header"><div><div class="section-label">This week</div><h2>Weather statistics</h2></div><span class="external-label">Calculated from forecast data</span></div>
+        <div class="premium-grid" id="statistics-grid"></div>
+      </section>
+
+      <section class="embed-section" id="weather-map-section">
+        <div class="embed-header"><div><div class="section-label">Interactive layers</div><h2>Weather maps</h2></div><span class="external-label">Switch between live map types</span></div>
+        <div class="iframe-shell glass">
+          <div class="map-tabs" role="tablist" aria-label="Weather map type">
+            <button class="map-tab active" type="button" data-map="rain">🌧 Rain</button>
+            <button class="map-tab" type="button" data-map="lightning">⚡ Lightning</button>
+            <button class="map-tab" type="button" data-map="wind">🌬 Wind</button>
+            <button class="map-tab" type="button" data-map="clouds">☁️ Clouds</button>
+          </div>
+          <iframe class="map-frame" id="weather-map-frame" src="https://www.rainviewer.com/map.html?loc=51.5,-0.1,7" title="Interactive weather map" loading="lazy" allowfullscreen></iframe>
+        </div>
       </section>
 
       <section class="embed-section" id="status-section">
@@ -2263,6 +2388,98 @@
           ></iframe>
         </div>
       </section>
+
+    <!-- SWLondon Forecast 2.0 additions -->
+    <section class="dynamic-island glass" id="dynamic-island" aria-expanded="false">
+      <span class="island-icon" id="island-icon">🌦️</span>
+      <div class="island-copy"><strong id="island-title">Weather intelligence ready</strong><span id="island-subtitle">Tap for your smart forecast summary</span><div class="island-extra" id="island-extra">Rain, sunset, warnings and updates will appear here automatically.</div></div>
+      <span>⌄</span>
+    </section>
+
+    <section class="v2-section" id="personal-dashboard">
+      <div class="v2-header"><div><div class="section-label">Made for me</div><h2>Your personal weather dashboard</h2></div><span class="external-label">Live smart overview</span></div>
+      <div class="v2-grid">
+        <article class="v2-card glass"><h3>🧠 AI-style summary</h3><p id="smart-summary">A calm day is expected. Your personalised summary will update from the current forecast.</p></article>
+        <article class="v2-card glass"><h3>🌧 Next rain</h3><p id="next-rain">No immediate rain detected in the current timeline.</p></article>
+        <article class="v2-card glass"><h3>🌅 Daylight</h3><p id="daylight-summary">Sunset information will update throughout the day.</p></article>
+      </div>
+    </section>
+
+    <section class="v2-section" id="earth-section">
+      <div class="v2-header"><div><div class="section-label">Explore the planet</div><h2>Interactive 3D Earth</h2></div><span class="external-label">Drag the globe · choose a city</span></div>
+      <div class="earth-shell glass v2-card">
+        <div class="earth" id="earth" role="img" aria-label="Interactive stylised rotating Earth"></div>
+        <div class="earth-controls">
+          <button class="earth-location active" type="button" data-earth-city="London" data-temp="23">🇬🇧 London <strong>23°</strong></button>
+          <button class="earth-location" type="button" data-earth-city="Paris" data-temp="27">🇫🇷 Paris <strong>27°</strong></button>
+          <button class="earth-location" type="button" data-earth-city="New York" data-temp="29">🇺🇸 New York <strong>29°</strong></button>
+          <button class="earth-location" type="button" data-earth-city="Tokyo" data-temp="26">🇯🇵 Tokyo <strong>26°</strong></button>
+          <p id="earth-result">London selected. Use the globe to explore the visual world view.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="v2-section" id="sky-engine">
+      <div class="v2-header"><div><div class="section-label">Living atmosphere</div><h2>Dynamic sky & window mode</h2></div><div class="mode-tabs"><button class="mode-tab active" data-sky="day" type="button">Day</button><button class="mode-tab" data-sky="night" type="button">Night</button><button class="mode-tab" data-sky="rain" type="button">Rain</button><button class="mode-tab" data-sky="storm" type="button">Storm</button></div></div>
+      <div class="sky-window glass" id="sky-window"><div class="sky-sun"></div><div class="sky-moon"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="droplet-layer" id="droplet-layer"></div><div class="star-layer" id="star-layer"></div><div class="shooting-star"></div></div>
+    </section>
+
+    <section class="v2-section" id="storm-section">
+      <div class="v2-header"><div><div class="section-label">Storm intelligence</div><h2>Storm tracker & compass</h2></div></div>
+      <div class="v2-grid">
+        <article class="v2-card glass storm-card"><div><h3>⚡ Storm Cell #18</h3><p>Heading north-east at 58 mph. Demonstration tracker uses the current dashboard styling.</p></div><div><div class="storm-eta">12 min</div><small>estimated arrival</small></div></article>
+        <article class="v2-card glass"><h3>🧭 Wind compass</h3><div class="compass"><div class="compass-needle" id="compass-needle"></div></div><p id="compass-copy">Wind direction: north-east</p></article>
+        <article class="v2-card glass"><h3>🚨 Extreme weather mode</h3><p>Preview a stronger emergency presentation without changing the real warning data.</p><button class="glass-action" id="extreme-preview" type="button">Preview emergency mode</button></article>
+      </div>
+    </section>
+
+    <section class="v2-section" id="camera-section">
+      <div class="v2-header"><div><div class="section-label">Sky cameras</div><h2>Live camera switcher</h2></div><div class="mode-tabs" id="camera-tabs"><button class="mode-tab active" data-camera="London" type="button">London</button><button class="mode-tab" data-camera="Somerset" type="button">Somerset</button><button class="mode-tab" data-camera="Heathrow" type="button">Heathrow</button><button class="mode-tab" data-camera="Bristol" type="button">Bristol</button></div></div>
+      <div class="camera-panel glass"><div><div class="camera-scene" id="camera-scene">🏙️</div><h3 id="camera-title">London sky camera</h3><p class="camera-note">Camera-ready panel. Add an approved public webcam URL later if you want a genuine live feed.</p></div></div>
+    </section>
+
+    <section class="v2-section" id="widgets-section">
+      <div class="v2-header"><div><div class="section-label">Custom dashboard</div><h2>Drag-and-drop widgets</h2></div><span class="external-label">Drag cards to reorder</span></div>
+      <div class="widget-board" id="widget-board">
+        <article class="move-widget glass" draggable="true"><span class="handle">⋮⋮</span><h3>☀️ Weather</h3><p>Current conditions and feels-like temperature.</p></article>
+        <article class="move-widget glass" draggable="true"><span class="handle">⋮⋮</span><h3>🌧 Radar</h3><p>Switchable rain, lightning, wind and cloud layers.</p></article>
+        <article class="move-widget glass" draggable="true"><span class="handle">⋮⋮</span><h3>🌙 Moon</h3><p>Moon phase, rise, set and illumination.</p></article>
+        <article class="move-widget glass" draggable="true"><span class="handle">⋮⋮</span><h3>🌬 Air quality</h3><p>Quick air-quality and UV guidance.</p></article>
+        <article class="move-widget glass" draggable="true"><span class="handle">⋮⋮</span><h3>📰 News</h3><p>Latest local forecast and product updates.</p></article>
+        <article class="move-widget glass" draggable="true"><span class="handle">⋮⋮</span><h3>📊 Statistics</h3><p>Weekly highs, lows, humidity and wind.</p></article>
+      </div>
+    </section>
+
+    <section class="v2-section" id="smart-notifications">
+      <div class="v2-header"><div><div class="section-label">Helpful, not noisy</div><h2>Smart notifications</h2></div></div>
+      <div class="smart-list">
+        <div class="smart-item glass"><span>☂️</span><div><strong>Rain planning</strong><span>Leave earlier when rain is expected near your selected location.</span></div></div>
+        <div class="smart-item glass"><span>🧴</span><div><strong>UV protection</strong><span>Highlights when sunscreen or shade may be sensible.</span></div></div>
+        <div class="smart-item glass"><span>🌅</span><div><strong>Sunset reminder</strong><span>Shows a reminder shortly before sunset.</span></div></div>
+      </div>
+    </section>
+
+    <section class="v2-section" id="memories-section">
+      <div class="v2-header"><div><div class="section-label">Weather memories</div><h2>Your weather diary</h2></div><button class="glass-action" id="save-memory" type="button">Save today</button></div>
+      <div class="memory-grid" id="memory-grid"></div>
+    </section>
+
+    <section class="v2-section" id="game-section">
+      <div class="v2-header"><div><div class="section-label">Mini game</div><h2>Catch the sunshine</h2></div><button class="glass-action" id="start-game" type="button">Start game</button></div>
+      <div class="game-score"><strong>Score: <span id="game-score">0</span></strong><span id="game-status">Catch the suns and avoid lightning.</span></div>
+      <div class="game-area" id="game-area"></div>
+    </section>
+
+    <section class="v2-section" id="lock-screen-section">
+      <div class="v2-header"><div><div class="section-label">App previews</div><h2>Lock-screen weather widget</h2></div></div>
+      <div class="lock-preview glass"><div class="lock-time" id="lock-time">22:00</div><div>Thursday, 16 July</div><div class="lock-widget"><div style="font-size:2rem">☁️ 23°</div><strong>SWLondon Forecast</strong><p>Warm with light cloud</p></div></div>
+    </section>
+
+    <section class="v2-section" id="window-section">
+      <div class="v2-header"><div><div class="section-label">Window mode</div><h2>Weather through glass</h2></div></div>
+      <div class="window-mode"><div class="window-condensation"></div><div class="droplet-layer" id="window-drops"></div></div>
+    </section>
+
     </main>
 
     <footer>
@@ -2503,6 +2720,16 @@
       </label>
     </div>
 
+
+    <div class="settings-group">
+      <div class="settings-group-title">Experience</div>
+      <label class="setting-row"><span class="setting-copy"><strong>Dynamic weather backgrounds</strong><span>Change the atmosphere to match current conditions.</span></span><span class="switch"><input type="checkbox" id="dynamic-background-setting" checked><span class="switch-track"></span></span></label>
+      <label class="setting-row"><span class="setting-copy"><strong>Weather effects</strong><span>Show rain, snow, frost, heat and rainbow effects.</span></span><span class="switch"><input type="checkbox" id="weather-effects-setting" checked><span class="switch-track"></span></span></label>
+      <label class="setting-row"><span class="setting-copy"><strong>Glass tilt</strong><span>Let cards gently respond to pointer movement.</span></span><span class="switch"><input type="checkbox" id="glass-tilt-setting"><span class="switch-track"></span></span></label>
+      <label class="setting-row"><span class="setting-copy"><strong>Ambient sound</strong><span>Play a soft generated weather atmosphere.</span></span><select id="ambient-sound-setting" class="glass-select"><option value="off">Off</option><option value="auto">Automatic</option><option value="rain">Rain</option><option value="wind">Wind</option><option value="ocean">Ocean</option><option value="birds">Birds</option><option value="storm">Storm</option></select></label>
+      <label class="setting-row"><span class="setting-copy"><strong>Wallpaper</strong><span>Choose a background style.</span></span><span class="wallpaper-options" id="wallpaper-options"><button class="wallpaper-button wallpaper-blue" data-wallpaper="blue" type="button" aria-label="Blue wallpaper"></button><button class="wallpaper-button wallpaper-sunset" data-wallpaper="sunset" type="button" aria-label="Sunset wallpaper"></button><button class="wallpaper-button wallpaper-aurora" data-wallpaper="aurora" type="button" aria-label="Aurora wallpaper"></button><button class="wallpaper-button wallpaper-ocean" data-wallpaper="ocean" type="button" aria-label="Ocean wallpaper"></button><button class="wallpaper-button wallpaper-stars" data-wallpaper="stars" type="button" aria-label="Stars wallpaper"></button><button class="wallpaper-button wallpaper-white" data-wallpaper="white" type="button" aria-label="White wallpaper"></button></span></label>
+    </div>
+
     <div class="settings-group">
       <div class="settings-group-title">Page sections</div>
 
@@ -2521,6 +2748,17 @@
         <span class="switch"><input type="checkbox" id="radar-setting" checked><span class="switch-track"></span></span>
       </label>
     </div>
+
+
+    <div class="settings-group">
+      <div class="settings-group-title">Experience & performance</div>
+      <label class="setting-row"><span class="setting-copy"><strong>Experience mode</strong><span>Ultra Performance uses simple solid panels and pauses heavy visuals.</span></span><select id="experience-mode-setting" class="glass-select"><option value="standard">Standard</option><option value="ultra">Ultra Performance</option><option value="focus">Focus</option></select></label>
+      <label class="setting-row"><span class="setting-copy"><strong>Dynamic Island</strong><span>Show smart weather alerts at the top.</span></span><span class="switch"><input type="checkbox" id="dynamic-island-setting" checked><span class="switch-track"></span></span></label>
+      <label class="setting-row"><span class="setting-copy"><strong>Live sky engine</strong><span>Enable moving clouds, stars and rain effects.</span></span><span class="switch"><input type="checkbox" id="sky-engine-setting" checked><span class="switch-track"></span></span></label>
+      <label class="setting-row"><span class="setting-copy"><strong>Dynamic accent</strong><span>Change interface accents with the weather.</span></span><span class="switch"><input type="checkbox" id="dynamic-accent-setting" checked><span class="switch-track"></span></span></label>
+      <div class="setting-note">Ultra Performance is designed for older phones and computers. Maps remain available after switching back to Standard mode.</div>
+    </div>
+
 
     <button
       type="button"
@@ -2557,7 +2795,7 @@
         symbol: "🛠️",
         title: "Scheduled Maintenance",
         desc: "Scheduled maintenance is currently taking place. Some services may be temporarily unavailable.",
-        visible: false
+        visible: true
       },
       {
         id: "heat",
@@ -2610,13 +2848,6 @@
     */
 
     const newsConfig = [
-        {
-        title: "Welcome to V2",
-        text: "A major redesign introducing a modern Liquid Glass interface with Dark & Light Mode, personalised settings, improved weather updates, UK rainfall radar, notifications, and a faster, smoother experience.. This update lays the foundation for future features while delivering a cleaner, more powerful SWLondon Forecast across desktop and mobile",
-        category: "Update",
-        date: "Today",
-        visible: true
-      },
       {
         title: "Welcome to the new News section",
         text: "Important forecast updates and service announcements will appear here.",
@@ -2720,7 +2951,13 @@
       colourFilter: "none",
       animationQuality: "balanced",
       autoRefresh: true,
-      stickyNav: true
+      stickyNav: true,
+      dynamicBackground: true,
+      weatherEffects: true,
+      glassTilt: false,
+      ambientSound: "off",
+      wallpaper: "blue",
+      favourites: ["london", "crewkerne"]
     };
 
     let settings = loadSettings();
@@ -2768,6 +3005,17 @@
       backToTop: document.getElementById("back-to-top"),
       resetSettings: document.getElementById("reset-settings"),
 
+      dynamicBackgroundSetting: document.getElementById("dynamic-background-setting"),
+      weatherEffectsSetting: document.getElementById("weather-effects-setting"),
+      glassTiltSetting: document.getElementById("glass-tilt-setting"),
+      ambientSoundSetting: document.getElementById("ambient-sound-setting"),
+      wallpaperButtons: document.querySelectorAll("[data-wallpaper]"),
+      weatherParticles: document.getElementById("weather-particles"),
+      favouriteSelect: document.getElementById("favourite-select"),
+      favouriteList: document.getElementById("favourite-list"),
+      addFavourite: document.getElementById("add-favourite"),
+      newsSearch: document.getElementById("news-search"),
+      clearNewsSearch: document.getElementById("clear-news-search"),
       toast: document.getElementById("toast")
     };
 
@@ -2938,6 +3186,11 @@ function applyTheme() {
       elements.animationQualitySetting.value = settings.animationQuality;
       elements.autoRefreshSetting.checked = settings.autoRefresh;
       elements.stickyNavSetting.checked = settings.stickyNav;
+      elements.dynamicBackgroundSetting.checked = settings.dynamicBackground;
+      elements.weatherEffectsSetting.checked = settings.weatherEffects;
+      elements.glassTiltSetting.checked = settings.glassTilt;
+      elements.ambientSoundSetting.value = settings.ambientSound;
+      elements.wallpaperButtons.forEach(button => button.setAttribute("aria-pressed", String(button.dataset.wallpaper === settings.wallpaper)));
       elements.colourFilterButtons.forEach((button) => {
         button.setAttribute("aria-pressed", String(button.dataset.colourFilter === settings.colourFilter));
       });
@@ -3021,6 +3274,9 @@ function applyTheme() {
           </p>
         </div>
       `;
+
+      const firstSuccessful = weatherResults.find(item => item.weather);
+      if (firstSuccessful) updatePremiumDashboard(firstSuccessful.place, firstSuccessful.weather);
 
       elements.lastUpdated.textContent =
         "Forecast areas can be changed in Settings.";
@@ -3125,8 +3381,10 @@ function applyTheme() {
         `https://api.open-meteo.com/v1/forecast` +
         `?latitude=${place.lat}` +
         `&longitude=${place.lon}` +
-        `&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m` +
-        `&timezone=auto`;
+        `&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,weather_code,is_day` +
+        `&hourly=temperature_2m,precipitation_probability,weather_code` +
+        `&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max,sunrise,sunset` +
+        `&forecast_days=7&timezone=auto`;
 
       try {
         const response = await fetch(url);
@@ -3147,7 +3405,11 @@ function applyTheme() {
           temp: Number(data.current.temperature_2m),
           feels: Number(data.current.apparent_temperature),
           humidity: Number(data.current.relative_humidity_2m),
-          wind: Number(data.current.wind_speed_10m)
+          wind: Number(data.current.wind_speed_10m),
+          code: Number(data.current.weather_code),
+          isDay: Number(data.current.is_day),
+          hourly: data.hourly || null,
+          daily: data.daily || null
         };
       } catch (error) {
         console.error(
@@ -3338,6 +3600,132 @@ function applyTheme() {
 
 
 
+
+
+    const mapSources = {
+      rain: "https://www.rainviewer.com/map.html?loc=51.5,-0.1,7",
+      lightning: "https://embed.windy.com/embed2.html?lat=51.1&lon=-1.6&detailLat=51.1&detailLon=-1.6&width=650&height=500&zoom=6&level=surface&overlay=thunder&product=ecmwf&menu=&message=true&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1",
+      wind: "https://embed.windy.com/embed2.html?lat=51.1&lon=-1.6&detailLat=51.1&detailLon=-1.6&width=650&height=500&zoom=6&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1",
+      clouds: "https://embed.windy.com/embed2.html?lat=51.1&lon=-1.6&detailLat=51.1&detailLon=-1.6&width=650&height=500&zoom=6&level=surface&overlay=clouds&product=ecmwf&menu=&message=true&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1"
+    };
+
+    function weatherEmoji(code) {
+      if ([0,1].includes(code)) return "☀️";
+      if ([2,3].includes(code)) return "⛅";
+      if ([45,48].includes(code)) return "🌫️";
+      if ([51,53,55,61,63,65,80,81,82].includes(code)) return "🌧️";
+      if ([71,73,75,77,85,86].includes(code)) return "❄️";
+      if ([95,96,99].includes(code)) return "⛈️";
+      return "☁️";
+    }
+
+    function moonPhase(date = new Date()) {
+      const known = Date.UTC(2000,0,6,18,14);
+      const days = (date.getTime()-known)/86400000;
+      const age = ((days % 29.53058867)+29.53058867)%29.53058867;
+      if (age < 1.85) return "New moon";
+      if (age < 7.38) return "Waxing crescent";
+      if (age < 9.23) return "First quarter";
+      if (age < 14.77) return "Waxing gibbous";
+      if (age < 16.61) return "Full moon";
+      if (age < 22.15) return "Waning gibbous";
+      if (age < 24) return "Last quarter";
+      return "Waning crescent";
+    }
+
+    async function updateAirQuality(place) {
+      try {
+        const response = await fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${place.lat}&longitude=${place.lon}&current=european_aqi&timezone=auto`);
+        const data = await response.json();
+        const aqi = Math.round(data.current?.european_aqi ?? 0);
+        document.getElementById("aqi-value").textContent = aqi || "—";
+        document.getElementById("aqi-advice").textContent = aqi <= 20 ? "Good — air is generally clear." : aqi <= 40 ? "Fair — suitable for most people." : aqi <= 60 ? "Moderate — sensitive people may notice it." : "Poor — consider reducing intense outdoor activity.";
+      } catch { document.getElementById("aqi-advice").textContent = "Air-quality data is temporarily unavailable."; }
+    }
+
+    function updatePremiumDashboard(place, weather) {
+      const daily = weather.daily;
+      const hourly = weather.hourly;
+      const uv = Math.round(daily?.uv_index_max?.[0] ?? 0);
+      document.getElementById("uv-value").textContent = uv;
+      document.getElementById("uv-advice").textContent = uv <= 2 ? "Low — basic protection is usually enough." : uv <= 5 ? "Moderate — sunscreen is recommended." : uv <= 7 ? "High — use sunscreen, shade and a hat." : "Very high — limit strong midday sun.";
+      document.getElementById("moon-info").textContent = `${moonPhase()} · Moon information for tonight`;
+      document.getElementById("summary-value").textContent = `${weatherEmoji(weather.code)} ${Math.round(weather.temp)}°`;
+      document.getElementById("summary-advice").textContent = `${place.name}: feels like ${Math.round(weather.feels)}°, humidity ${Math.round(weather.humidity)}%, wind ${Math.round(weather.wind)} km/h.`;
+      updateAirQuality(place);
+      renderHourly(hourly);
+      renderCalendar(daily);
+      renderStatistics(daily, hourly);
+      applyLiveWeatherExperience(weather);
+    }
+
+    function renderHourly(hourly) {
+      const holder = document.getElementById("hourly-strip");
+      if (!hourly?.time) return;
+      const now = Date.now();
+      let start = hourly.time.findIndex(t => new Date(t).getTime() >= now - 3600000);
+      if (start < 0) start = 0;
+      holder.innerHTML = hourly.time.slice(start,start+8).map((time,i) => {
+        const index=start+i, chance=Math.round(hourly.precipitation_probability[index]||0);
+        return `<div class="hour-chip"><strong>${new Date(time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</strong><span>${weatherEmoji(hourly.weather_code[index])} ${Math.round(hourly.temperature_2m[index])}°</span><span>${chance}% rain</span><div class="rain-bar"><i style="width:${chance}%"></i></div></div>`;
+      }).join("");
+    }
+
+    function renderCalendar(daily) {
+      const holder=document.getElementById("weather-calendar");
+      if(!daily?.time) return;
+      holder.innerHTML=daily.time.map((day,i)=>`<article class="calendar-day glass"><strong>${new Date(day).toLocaleDateString("en-GB",{weekday:"short",day:"numeric"})}</strong><span>${weatherEmoji(daily.weather_code[i])} ${Math.round(daily.temperature_2m_max[i])}° / ${Math.round(daily.temperature_2m_min[i])}°</span><span>${Math.round(daily.precipitation_probability_max[i]||0)}% rain</span></article>`).join("");
+    }
+
+    function renderStatistics(daily,hourly) {
+      if(!daily?.time) return;
+      const max=Math.max(...daily.temperature_2m_max), min=Math.min(...daily.temperature_2m_min), rain=daily.precipitation_probability_max.reduce((a,b)=>a+(b||0),0)/daily.time.length;
+      const cards=[['Highest',`${Math.round(max)}°`,'Warmest forecast temperature'],['Lowest',`${Math.round(min)}°`,'Coolest forecast temperature'],['Average rain',`${Math.round(rain)}%`,'Average daily rain chance'],['Forecast days',daily.time.length,'Days currently available']];
+      document.getElementById("statistics-grid").innerHTML=cards.map(c=>`<article class="premium-card glass"><h3>${c[0]}</h3><div class="premium-value">${c[1]}</div><div class="premium-sub">${c[2]}</div></article>`).join("");
+    }
+
+    function applyWallpaper() {
+      ["sunset","aurora","ocean","stars","white"].forEach(name=>document.body.classList.toggle(`wallpaper-${name}`,settings.wallpaper===name));
+      elements.wallpaperButtons.forEach(button=>button.setAttribute("aria-pressed",String(button.dataset.wallpaper===settings.wallpaper)));
+    }
+
+    function applyLiveWeatherExperience(weather) {
+      document.body.classList.remove("weather-sunny","weather-rainy","weather-cold","weather-hot","show-rainbow");
+      if(!settings.dynamicBackground && !settings.weatherEffects) { elements.weatherParticles.innerHTML=""; return; }
+      const rainy=[51,53,55,61,63,65,80,81,82,95,96,99].includes(weather.code);
+      const snowy=[71,73,75,77,85,86].includes(weather.code);
+      if(settings.dynamicBackground) {
+        document.body.classList.toggle("weather-sunny",weather.code<=1);
+        document.body.classList.toggle("weather-rainy",rainy);
+      }
+      document.body.classList.toggle("weather-cold",settings.weatherEffects && weather.temp<=1);
+      document.body.classList.toggle("weather-hot",settings.weatherEffects && weather.temp>=27);
+      document.body.classList.toggle("show-rainbow",settings.weatherEffects && rainy && weather.isDay===1);
+      elements.weatherParticles.innerHTML="";
+      if(settings.weatherEffects && (rainy||snowy)) {
+        const symbol=snowy?'❄':'•';
+        for(let i=0;i<24;i++) elements.weatherParticles.insertAdjacentHTML('beforeend',`<span style="left:${Math.random()*100}%;animation-duration:${4+Math.random()*7}s;animation-delay:${-Math.random()*8}s;font-size:${snowy?10+Math.random()*14:18}px">${symbol}</span>`);
+      }
+    }
+
+    function setupFavourites() {
+      const flat=Object.values(allPlaces).flat();
+      elements.favouriteSelect.innerHTML=flat.map(p=>`<option value="${p.id}">${escapeHTML(p.name)}</option>`).join("");
+      renderFavourites();
+    }
+    function renderFavourites() {
+      const flat=Object.values(allPlaces).flat();
+      elements.favouriteList.innerHTML=settings.favourites.map(id=>flat.find(p=>p.id===id)).filter(Boolean).map(p=>`<span class="favourite-chip"><button type="button" data-open-favourite="${p.id}">⭐ ${escapeHTML(p.name)}</button><button type="button" data-remove-favourite="${p.id}" aria-label="Remove ${escapeHTML(p.name)}">×</button></span>`).join("");
+      elements.favouriteList.querySelectorAll('[data-open-favourite]').forEach(btn=>btn.addEventListener('click',()=>{const sec=allPlaces.london.some(p=>p.id===btn.dataset.openFavourite)?'london':'somerset';activeSection=sec;renderSection(sec);document.getElementById('forecast-section').scrollIntoView({behavior:'smooth'});}));
+      elements.favouriteList.querySelectorAll('[data-remove-favourite]').forEach(btn=>btn.addEventListener('click',()=>{settings.favourites=settings.favourites.filter(id=>id!==btn.dataset.removeFavourite);saveSettings(false);renderFavourites();}));
+    }
+
+    let ambientContext, ambientNodes=[];
+    function stopAmbient(){ambientNodes.forEach(n=>{try{n.stop?.()}catch{} try{n.disconnect?.()}catch{}});ambientNodes=[];}
+    function applyAmbientSound(){stopAmbient(); if(settings.ambientSound==='off') return; ambientContext ||= new (window.AudioContext||window.webkitAudioContext)(); ambientContext.resume(); const gain=ambientContext.createGain(); gain.gain.value=.018; gain.connect(ambientContext.destination); const buffer=ambientContext.createBuffer(1,ambientContext.sampleRate*2,ambientContext.sampleRate); const data=buffer.getChannelData(0); for(let i=0;i<data.length;i++) data[i]=Math.random()*2-1; const noise=ambientContext.createBufferSource();noise.buffer=buffer;noise.loop=true;const filter=ambientContext.createBiquadFilter();filter.type=settings.ambientSound==='rain'?'highpass':'lowpass';filter.frequency.value=settings.ambientSound==='storm'?450:settings.ambientSound==='ocean'?180:900;noise.connect(filter);filter.connect(gain);noise.start();ambientNodes=[noise,filter,gain];}
+
+    function setupGlassTilt(){document.querySelectorAll('.glass').forEach(card=>{card.onpointermove=settings.glassTilt?(e)=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.transform=`perspective(900px) rotateX(${-y*2.5}deg) rotateY(${x*2.5}deg) translateY(-2px)`}:null;card.onpointerleave=()=>card.style.transform='';});}
+
     function applyPhoneFit() {
       document.body.classList.toggle("phone-fit", settings.phoneFit);
       elements.phoneFitSetting.classList.toggle("active", settings.phoneFit);
@@ -3376,6 +3764,8 @@ function applyTheme() {
       applyPhoneFit();
       applyColourAccessibility();
       applySmoothnessSettings();
+      applyWallpaper();
+      setupGlassTilt();
 
       document.body.classList.toggle("reduce-motion", settings.reduceMotion);
       document.body.classList.toggle("large-text", settings.largeText);
@@ -3594,6 +3984,21 @@ function applyTheme() {
       elements.backToTop.classList.toggle("show", window.scrollY > 520);
     }, { passive: true });
 
+
+    document.querySelectorAll("[data-map]").forEach(button => button.addEventListener("click", () => {
+      document.querySelectorAll("[data-map]").forEach(item => item.classList.toggle("active", item === button));
+      document.getElementById("weather-map-frame").src = mapSources[button.dataset.map];
+      showToast(`${button.textContent.trim()} map selected`);
+    }));
+    elements.dynamicBackgroundSetting.addEventListener("change", e => { settings.dynamicBackground=e.target.checked; saveSettings(); renderSection(activeSection); });
+    elements.weatherEffectsSetting.addEventListener("change", e => { settings.weatherEffects=e.target.checked; saveSettings(); renderSection(activeSection); });
+    elements.glassTiltSetting.addEventListener("change", e => { settings.glassTilt=e.target.checked; setupGlassTilt(); saveSettings(); });
+    elements.ambientSoundSetting.addEventListener("change", e => { settings.ambientSound=e.target.value; applyAmbientSound(); saveSettings(); });
+    elements.wallpaperButtons.forEach(button=>button.addEventListener("click",()=>{settings.wallpaper=button.dataset.wallpaper;applyWallpaper();saveSettings();}));
+    elements.addFavourite.addEventListener("click",()=>{const id=elements.favouriteSelect.value;if(!settings.favourites.includes(id))settings.favourites.push(id);renderFavourites();saveSettings();});
+    elements.newsSearch.addEventListener("input",()=>{const q=elements.newsSearch.value.toLowerCase();document.querySelectorAll('.news-card').forEach(card=>card.classList.toggle('hidden-by-search',!card.textContent.toLowerCase().includes(q)));});
+    elements.clearNewsSearch.addEventListener("click",()=>{elements.newsSearch.value='';elements.newsSearch.dispatchEvent(new Event('input'));});
+
     elements.dismissHeat.addEventListener("click", () => {
       settings.heatNoticeDismissed = true;
       elements.heatNotice.classList.add("hidden");
@@ -3680,6 +4085,77 @@ function applyTheme() {
 
     window.addEventListener("resize", updateScrollShimmer);
 
+
+    /* ===== SWLondon Forecast 2.0 runtime ===== */
+    const v2Defaults = { experienceMode:"standard", showDynamicIsland:true, skyEngine:true, dynamicAccent:true };
+    let v2Settings = (()=>{try{return {...v2Defaults,...JSON.parse(localStorage.getItem("swLondonV2Settings")||"{}")}}catch{return {...v2Defaults}}})();
+    const $ = (s,root=document)=>root.querySelector(s);
+    const $$ = (s,root=document)=>[...root.querySelectorAll(s)];
+    function saveV2(){localStorage.setItem("swLondonV2Settings",JSON.stringify(v2Settings));}
+    function applyV2(){
+      document.body.classList.toggle("ultra-performance",v2Settings.experienceMode==="ultra");
+      document.body.classList.toggle("focus-mode",v2Settings.experienceMode==="focus");
+      const island=$("#dynamic-island"); if(island) island.classList.toggle("hidden",!v2Settings.showDynamicIsland);
+      const sky=$("#sky-engine"); if(sky) sky.classList.toggle("effects-paused",!v2Settings.skyEngine);
+      if(!v2Settings.skyEngine){$$(".cloud,.drop,.star,.shooting-star").forEach(el=>el.style.display="none")}else{$$(".cloud,.drop,.star,.shooting-star").forEach(el=>el.style.display="")}
+      if(v2Settings.dynamicAccent){
+        const h=new Date().getHours(); document.documentElement.style.setProperty("--accent",h>=18||h<6?"#8fa8ff":"#63d4ff");
+      }
+      const mode=$("#experience-mode-setting"); if(mode) mode.value=v2Settings.experienceMode;
+      const di=$("#dynamic-island-setting"); if(di) di.checked=v2Settings.showDynamicIsland;
+      const se=$("#sky-engine-setting"); if(se) se.checked=v2Settings.skyEngine;
+      const da=$("#dynamic-accent-setting"); if(da) da.checked=v2Settings.dynamicAccent;
+    }
+    $("#experience-mode-setting")?.addEventListener("change",e=>{v2Settings.experienceMode=e.target.value;saveV2();applyV2();showToast(e.target.value==="ultra"?"Ultra Performance enabled":"Experience mode updated")});
+    $("#dynamic-island-setting")?.addEventListener("change",e=>{v2Settings.showDynamicIsland=e.target.checked;saveV2();applyV2()});
+    $("#sky-engine-setting")?.addEventListener("change",e=>{v2Settings.skyEngine=e.target.checked;saveV2();applyV2()});
+    $("#dynamic-accent-setting")?.addEventListener("change",e=>{v2Settings.dynamicAccent=e.target.checked;saveV2();applyV2()});
+
+    $("#dynamic-island")?.addEventListener("click",e=>{const el=e.currentTarget;el.classList.toggle("expanded");el.setAttribute("aria-expanded",el.classList.contains("expanded"))});
+    function updateSmartText(){
+      const hour=new Date().getHours(); const greeting=hour<12?"Good morning":hour<18?"Good afternoon":"Good evening";
+      $("#smart-summary").textContent=`${greeting}! Conditions look manageable. Check the hourly rain timeline before travelling and keep an eye on humidity warnings.`;
+      $("#island-title").textContent=`${greeting} — your forecast is ready`;
+      $("#island-subtitle").textContent=hour>=18?"A calmer evening view is active":"Live conditions and smart guidance";
+      $("#daylight-summary").textContent=hour>=20?"Night mode is active. The next sunrise preview begins tomorrow morning.":"Sunset approaches gradually as the live sky engine changes through the day.";
+    }
+    updateSmartText();
+
+    let earthRotation=0, earthDragging=false, earthX=0;
+    const earth=$("#earth");
+    earth?.addEventListener("pointerdown",e=>{earthDragging=true;earthX=e.clientX;earth.setPointerCapture(e.pointerId)});
+    earth?.addEventListener("pointermove",e=>{if(!earthDragging)return;earthRotation+=(e.clientX-earthX)*.6;earthX=e.clientX;earth.style.setProperty("--earth-rotation",earthRotation+"deg")});
+    earth?.addEventListener("pointerup",()=>earthDragging=false);
+    $$(".earth-location").forEach(btn=>btn.addEventListener("click",()=>{$$(".earth-location").forEach(b=>b.classList.remove("active"));btn.classList.add("active");$("#earth-result").textContent=`${btn.dataset.earthCity} selected · ${btn.dataset.temp}°. This visual globe is ready to connect to a global forecast service later.`}));
+
+    function makeDrops(root,count=24){if(!root)return;root.innerHTML="";for(let i=0;i<count;i++){const d=document.createElement("i");d.className="drop";d.style.left=Math.random()*100+"%";d.style.top=-Math.random()*220+"px";d.style.animationDelay=Math.random()*1.2+"s";root.appendChild(d)}}
+    function makeStars(root,count=35){if(!root)return;root.innerHTML="";for(let i=0;i<count;i++){const s=document.createElement("i");s.className="star";s.style.left=Math.random()*100+"%";s.style.top=Math.random()*70+"%";s.style.animationDelay=Math.random()*2+"s";root.appendChild(s)}}
+    makeDrops($("#droplet-layer"),22);makeDrops($("#window-drops"),18);makeStars($("#star-layer"),40);
+    $$(".mode-tab[data-sky]").forEach(btn=>btn.addEventListener("click",()=>{const mode=btn.dataset.sky;$$(".mode-tab[data-sky]").forEach(b=>b.classList.toggle("active",b===btn));const sky=$("#sky-window");sky.classList.toggle("night",mode==="night"||mode==="storm");$("#droplet-layer").style.display=(mode==="rain"||mode==="storm")?"block":"none";if(mode==="storm"){sky.style.boxShadow="inset 0 0 80px rgba(150,170,255,.35)"}else{sky.style.boxShadow=""}}));
+    $("#droplet-layer").style.display="none";
+
+    const cams={London:["🏙️","London sky camera"],Somerset:["🌳","Somerset countryside camera"],Heathrow:["✈️","Heathrow airport sky camera"],Bristol:["🌉","Bristol sky camera"]};
+    $$("[data-camera]").forEach(btn=>btn.addEventListener("click",()=>{$$("[data-camera]").forEach(b=>b.classList.toggle("active",b===btn));const [icon,title]=cams[btn.dataset.camera];$("#camera-scene").textContent=icon;$("#camera-title").textContent=title}));
+
+    let dragged=null;
+    $$(".move-widget").forEach(w=>{w.addEventListener("dragstart",()=>{dragged=w;w.classList.add("dragging")});w.addEventListener("dragend",()=>{w.classList.remove("dragging");dragged=null});w.addEventListener("dragover",e=>{e.preventDefault();if(dragged&&dragged!==w){const r=w.getBoundingClientRect();$("#widget-board").insertBefore(dragged,e.clientY<r.top+r.height/2?w:w.nextSibling)}})});
+
+    $("#extreme-preview")?.addEventListener("click",()=>{document.body.classList.toggle("weather-rainy");const on=document.body.classList.contains("weather-rainy");$("#island-icon").textContent=on?"⚠️":"🌦️";$("#island-title").textContent=on?"RED WEATHER WARNING PREVIEW":"Weather intelligence ready";showToast(on?"Emergency preview enabled":"Emergency preview closed")});
+
+    const memories=(()=>{try{return JSON.parse(localStorage.getItem("swLondonMemories")||"[]")}catch{return[]}})();
+    function renderMemories(){const grid=$("#memory-grid");if(!grid)return;grid.innerHTML="";const days=[...memories].slice(-14);if(!days.length){grid.innerHTML='<div class="empty-state glass"><h3>No memories yet</h3><p>Press “Save today” to add the current weather to your diary.</p></div>';return}days.forEach(m=>{const d=document.createElement("div");d.className="memory-day glass";d.innerHTML=`<strong>${escapeHTML(m.date)}</strong><span>${m.icon}</span>${escapeHTML(m.note)}`;grid.appendChild(d)})}
+    $("#save-memory")?.addEventListener("click",()=>{memories.push({date:new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short"}),icon:"🌤️",note:"Forecast saved"});localStorage.setItem("swLondonMemories",JSON.stringify(memories));renderMemories();showToast("Weather memory saved")});renderMemories();
+
+    let gameTimer=null,score=0;
+    $("#start-game")?.addEventListener("click",()=>{clearInterval(gameTimer);score=0;$("#game-score").textContent=score;$("#game-area").innerHTML="";$("#game-status").textContent="Game running…";gameTimer=setInterval(()=>{const item=document.createElement("button");item.type="button";const bad=Math.random()<.25;item.className="game-item";item.textContent=bad?"⚡":"☀️";item.style.left=Math.random()*90+"%";item.style.top="-35px";item.addEventListener("click",()=>{score+=bad?-2:1;$("#game-score").textContent=score;item.remove()});$("#game-area").appendChild(item);setTimeout(()=>item.remove(),4200)},650);setTimeout(()=>{clearInterval(gameTimer);$("#game-status").textContent=`Finished — score ${score}`},15000)});
+
+    function updateClock(){const n=new Date();$("#lock-time").textContent=n.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});}updateClock();setInterval(updateClock,30000);
+    const compass=$("#compass-needle");let angle=35;setInterval(()=>{if(document.hidden||v2Settings.experienceMode==="ultra")return;angle=(angle+7)%360;compass.style.transform=`translate(-50%,-100%) rotate(${angle}deg)`},2500);
+
+    document.addEventListener("visibilitychange",()=>{document.body.classList.toggle("page-hidden",document.hidden)});
+    applyV2();
+
+
     /*
       ------------------------------------------------------------
       INITIAL PAGE LOAD
@@ -3688,6 +4164,7 @@ function applyTheme() {
 
     updateTimeGlow();
     updateScrollShimmer();
+    setupFavourites();
     renderWarnings();
     renderNews();
     syncSettingsControls();
