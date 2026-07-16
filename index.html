@@ -2303,12 +2303,26 @@
 
 
       <section class="embed-section" id="smart-dashboard-section">
-        <div class="embed-header"><div><div class="section-label">Smart weather</div><h2>Today at a glance</h2></div><span class="external-label">Live personalised insights</span></div>
+        <div class="embed-header">
+          <div>
+            <div class="section-label">Smart UK weather</div>
+            <div class="title-with-badge"><h2>Today at a glance</h2><span class="beta-badge">Auto</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end">
+            <span class="external-label" id="smart-glance-updated">Updating live UK insights…</span>
+            <button class="glass-action" id="refresh-smart-glance" type="button">↻ Refresh insights</button>
+          </div>
+        </div>
         <div class="premium-grid">
+          <article class="premium-card glass"><h3>UK overview</h3><div class="premium-value" id="uk-overview-value">—</div><div class="premium-sub" id="uk-overview-advice">Checking conditions across the UK…</div></article>
+          <article class="premium-card glass"><h3>Weather summary</h3><div class="premium-value" id="summary-value">—</div><div class="premium-sub" id="summary-advice">Preparing today’s local summary…</div></article>
+          <article class="premium-card glass"><h3>Health advice</h3><div class="premium-value" id="health-value">—</div><div class="premium-sub" id="health-advice">Reviewing UV, heat and humidity…</div></article>
+          <article class="premium-card glass"><h3>Travel advice</h3><div class="premium-value" id="travel-value">—</div><div class="premium-sub" id="travel-advice">Checking rain and wind risks…</div></article>
+          <article class="premium-card glass"><h3>School advice</h3><div class="premium-value" id="school-value">—</div><div class="premium-sub" id="school-advice">Preparing practical guidance…</div></article>
+          <article class="premium-card glass"><h3>Garden advice</h3><div class="premium-value" id="garden-value">—</div><div class="premium-sub" id="garden-advice">Checking rainfall and sunshine…</div></article>
           <article class="premium-card glass"><h3>UV index</h3><div class="premium-value" id="uv-value">—</div><div class="premium-sub" id="uv-advice">Loading UV guidance…</div></article>
           <article class="premium-card glass"><h3>Air quality</h3><div class="premium-value" id="aqi-value">—</div><div class="premium-sub" id="aqi-advice">Loading air quality…</div></article>
           <article class="premium-card glass"><h3>Moon</h3><div class="moon-orb"></div><div class="premium-sub" id="moon-info">Calculating moon phase…</div></article>
-          <article class="premium-card glass"><h3>Weather summary</h3><div class="premium-value" id="summary-value">—</div><div class="premium-sub" id="summary-advice">Preparing today’s summary…</div></article>
         </div>
       </section>
 
@@ -2410,11 +2424,11 @@
       <div class="earth-shell glass v2-card">
         <div class="earth" id="earth" role="img" aria-label="Interactive stylised rotating Earth"></div>
         <div class="earth-controls">
-          <button class="earth-location active" type="button" data-earth-city="London" data-temp="23">🇬🇧 London <strong>23°</strong></button>
-          <button class="earth-location" type="button" data-earth-city="Paris" data-temp="27">🇫🇷 Paris <strong>27°</strong></button>
-          <button class="earth-location" type="button" data-earth-city="New York" data-temp="29">🇺🇸 New York <strong>29°</strong></button>
-          <button class="earth-location" type="button" data-earth-city="Tokyo" data-temp="26">🇯🇵 Tokyo <strong>26°</strong></button>
-          <p id="earth-result">London selected. Use the globe to explore the visual world view.</p>
+          <button class="earth-location active" type="button" data-earth-city="London" data-lat="51.5074" data-lon="-0.1278">🇬🇧 London <strong>—</strong></button>
+          <button class="earth-location" type="button" data-earth-city="Paris" data-lat="48.8566" data-lon="2.3522">🇫🇷 Paris <strong>—</strong></button>
+          <button class="earth-location" type="button" data-earth-city="New York" data-lat="40.7128" data-lon="-74.0060">🇺🇸 New York <strong>—</strong></button>
+          <button class="earth-location" type="button" data-earth-city="Tokyo" data-lat="35.6762" data-lon="139.6503">🇯🇵 Tokyo <strong>—</strong></button>
+          <p id="earth-result">Loading London’s live weather…</p>
         </div>
       </div>
     </section>
@@ -2427,15 +2441,15 @@
     <section class="v2-section" id="storm-section">
       <div class="v2-header"><div><div class="section-label">Storm intelligence</div><h2>Storm tracker & compass</h2></div></div>
       <div class="v2-grid">
-        <article class="v2-card glass storm-card"><div><h3>⚡ Storm Cell #18</h3><p>Heading north-east at 58 mph. Demonstration tracker uses the current dashboard styling.</p></div><div><div class="storm-eta">12 min</div><small>estimated arrival</small></div></article>
+        <article class="v2-card glass storm-card"><div><h3 id="storm-title">⚡ Storm tracker</h3><p id="storm-copy">Checking the live hourly forecast for thunderstorm signals…</p></div><div><div class="storm-eta" id="storm-eta">—</div><small id="storm-eta-label">live forecast</small></div></article>
         <article class="v2-card glass"><h3>🧭 Wind compass</h3><div class="compass"><div class="compass-needle" id="compass-needle"></div></div><p id="compass-copy">Wind direction: north-east</p></article>
         <article class="v2-card glass"><h3>🚨 Extreme weather mode</h3><p>Preview a stronger emergency presentation without changing the real warning data.</p><button class="glass-action" id="extreme-preview" type="button">Preview emergency mode</button></article>
       </div>
     </section>
 
     <section class="v2-section" id="camera-section">
-      <div class="v2-header"><div><div class="section-label">Sky cameras</div><h2>Live camera switcher</h2></div><div class="mode-tabs" id="camera-tabs"><button class="mode-tab active" data-camera="London" type="button">London</button><button class="mode-tab" data-camera="Somerset" type="button">Somerset</button><button class="mode-tab" data-camera="Heathrow" type="button">Heathrow</button><button class="mode-tab" data-camera="Bristol" type="button">Bristol</button></div></div>
-      <div class="camera-panel glass"><div><div class="camera-scene" id="camera-scene">🏙️</div><h3 id="camera-title">London sky camera</h3><p class="camera-note">Camera-ready panel. Add an approved public webcam URL later if you want a genuine live feed.</p></div></div>
+      <div class="v2-header"><div><div class="section-label">Live location conditions</div><h2>UK sky conditions switcher</h2></div><div class="mode-tabs" id="camera-tabs"><button class="mode-tab active" data-camera="London" type="button">London</button><button class="mode-tab" data-camera="Somerset" type="button">Somerset</button><button class="mode-tab" data-camera="Heathrow" type="button">Heathrow</button><button class="mode-tab" data-camera="Bristol" type="button">Bristol</button></div></div>
+      <div class="camera-panel glass"><div><div class="camera-scene" id="camera-scene">🌦️</div><h3 id="camera-title">London live conditions</h3><p class="camera-note" id="camera-note">Loading current weather from Open-Meteo…</p></div></div>
     </section>
 
     <section class="v2-section" id="widgets-section">
@@ -2483,7 +2497,7 @@
     </main>
 
     <footer>
-      Weather data from Open-Meteo · Automatically refreshes every 15 minutes
+      Weather, air-quality, timeline, calendar, statistics and smart guidance from Open-Meteo · Automatically refreshes every 15 minutes
     </footer>
   </div>
 
@@ -3381,9 +3395,9 @@ function applyTheme() {
         `https://api.open-meteo.com/v1/forecast` +
         `?latitude=${place.lat}` +
         `&longitude=${place.lon}` +
-        `&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,weather_code,is_day` +
-        `&hourly=temperature_2m,precipitation_probability,weather_code` +
-        `&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max,sunrise,sunset` +
+        `&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,wind_direction_10m,wind_gusts_10m,surface_pressure,cloud_cover,precipitation,visibility,weather_code,is_day` +
+        `&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m,cloud_cover,surface_pressure,visibility` +
+        `&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,uv_index_max,sunrise,sunset,sunshine_duration,wind_speed_10m_max,wind_gusts_10m_max` +
         `&forecast_days=7&timezone=auto`;
 
       try {
@@ -3406,6 +3420,12 @@ function applyTheme() {
           feels: Number(data.current.apparent_temperature),
           humidity: Number(data.current.relative_humidity_2m),
           wind: Number(data.current.wind_speed_10m),
+          windDirection: Number(data.current.wind_direction_10m ?? 0),
+          windGust: Number(data.current.wind_gusts_10m ?? data.current.wind_speed_10m ?? 0),
+          pressure: Number(data.current.surface_pressure ?? 0),
+          cloudCover: Number(data.current.cloud_cover ?? 0),
+          precipitation: Number(data.current.precipitation ?? 0),
+          visibility: Number(data.current.visibility ?? 0),
           code: Number(data.current.weather_code),
           isDay: Number(data.current.is_day),
           hourly: data.hourly || null,
@@ -3643,21 +3663,151 @@ function applyTheme() {
       } catch { document.getElementById("aqi-advice").textContent = "Air-quality data is temporarily unavailable."; }
     }
 
-    function updatePremiumDashboard(place, weather) {
-      const daily = weather.daily;
-      const hourly = weather.hourly;
-      const uv = Math.round(daily?.uv_index_max?.[0] ?? 0);
+    const ukInsightPlaces = [
+      { name: "London", lat: 51.5074, lon: -0.1278 },
+      { name: "Cardiff", lat: 51.4816, lon: -3.1791 },
+      { name: "Belfast", lat: 54.5973, lon: -5.9301 },
+      { name: "Edinburgh", lat: 55.9533, lon: -3.1883 },
+      { name: "Manchester", lat: 53.4808, lon: -2.2426 },
+      { name: "Newcastle", lat: 54.9783, lon: -1.6178 }
+    ];
+
+    let smartGlanceTimer = null;
+    let smartGlanceBusy = false;
+    let lastSmartPlace = null;
+    let lastSmartWeather = null;
+
+    function weatherWord(code) {
+      if ([0, 1].includes(code)) return "sunny";
+      if ([2, 3].includes(code)) return "cloudy";
+      if ([45, 48].includes(code)) return "foggy";
+      if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) return "rainy";
+      if ([71, 73, 75, 77, 85, 86].includes(code)) return "snowy";
+      if ([95, 96, 99].includes(code)) return "stormy";
+      return "mixed";
+    }
+
+    function setInsight(id, value, advice) {
+      const valueElement = document.getElementById(`${id}-value`);
+      const adviceElement = document.getElementById(`${id}-advice`);
+      if (valueElement) valueElement.textContent = value;
+      if (adviceElement) adviceElement.textContent = advice;
+    }
+
+    function buildLocalInsights(place, weather) {
+      const daily = weather.daily || {};
+      const hourly = weather.hourly || {};
+      const uv = Math.round(daily.uv_index_max?.[0] ?? 0);
+      const rain = Math.round(daily.precipitation_probability_max?.[0] ?? 0);
+      const high = Math.round(daily.temperature_2m_max?.[0] ?? weather.temp);
+      const low = Math.round(daily.temperature_2m_min?.[0] ?? weather.temp);
+      const sunset = daily.sunset?.[0] ? new Date(daily.sunset[0]).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) : null;
+      const condition = weatherWord(weather.code);
+
+      setInsight("summary", `${weatherEmoji(weather.code)} ${Math.round(weather.temp)}°`, `${place.name} is currently ${condition}, with a forecast high of ${high}° and low of ${low}°. Rain chance peaks near ${rain}%${sunset ? ` and sunset is around ${sunset}` : ""}.`);
+
+      let healthValue = "Comfortable";
+      let healthAdvice = "Normal outdoor precautions should be suitable for most people.";
+      if (uv >= 8) { healthValue = "Take care"; healthAdvice = "UV is very high. Seek shade around midday, wear sunscreen, a hat and sunglasses."; }
+      else if (uv >= 6) { healthValue = "High UV"; healthAdvice = "Use sunscreen and consider shade during the strongest afternoon sun."; }
+      else if (weather.temp >= 27 || weather.humidity >= 80) { healthValue = "Warm & humid"; healthAdvice = "Drink water regularly, take breaks and keep rooms ventilated where possible."; }
+      else if (weather.temp <= 5) { healthValue = "Cold"; healthAdvice = "Wear warm layers and take extra care on cold or potentially icy surfaces."; }
+      setInsight("health", healthValue, healthAdvice);
+
+      let travelValue = "Good";
+      let travelAdvice = "No major weather-related travel problems are suggested by the current forecast.";
+      if ([95, 96, 99].includes(weather.code)) { travelValue = "Storm risk"; travelAdvice = "Allow extra journey time and check official warnings before travelling."; }
+      else if (rain >= 70) { travelValue = "Wet roads"; travelAdvice = "Heavy rain is possible. Allow extra braking distance and take an umbrella."; }
+      else if (weather.wind >= 45) { travelValue = "Windy"; travelAdvice = "Strong winds may affect exposed routes, cyclists and high-sided vehicles."; }
+      else if ([45, 48].includes(weather.code)) { travelValue = "Low visibility"; travelAdvice = "Fog may reduce visibility. Use lights and leave extra space when travelling."; }
+      setInsight("travel", travelValue, travelAdvice);
+
+      let schoolValue = "Normal day";
+      let schoolAdvice = "Normal school activities should be manageable, but check the hourly forecast before outdoor plans.";
+      if (uv >= 6 || weather.temp >= 25) { schoolValue = "Bring water"; schoolAdvice = "A warm or high-UV day is expected. Bring water and use sun protection for outdoor activities."; }
+      if (rain >= 65) { schoolValue = "Bring a coat"; schoolAdvice = "Rain is likely. A waterproof coat and suitable shoes will be useful."; }
+      if ([95, 96, 99].includes(weather.code)) { schoolValue = "Check updates"; schoolAdvice = "Storms are possible. Schools and families should check official local updates before travel."; }
+      setInsight("school", schoolValue, schoolAdvice);
+
+      let gardenValue = "Normal";
+      let gardenAdvice = "Normal watering and garden plans should be suitable.";
+      if (rain >= 60) { gardenValue = "Skip watering"; gardenAdvice = "Rain is likely, so outdoor watering may not be necessary today."; }
+      else if (high >= 24 && rain < 30) { gardenValue = "Water later"; gardenAdvice = "Dry and warm conditions are likely. Water plants in the evening to reduce evaporation."; }
+      else if (weather.wind >= 35) { gardenValue = "Secure items"; gardenAdvice = "Windy conditions may affect pots, covers and lightweight garden furniture."; }
+      setInsight("garden", gardenValue, gardenAdvice);
+
       document.getElementById("uv-value").textContent = uv;
       document.getElementById("uv-advice").textContent = uv <= 2 ? "Low — basic protection is usually enough." : uv <= 5 ? "Moderate — sunscreen is recommended." : uv <= 7 ? "High — use sunscreen, shade and a hat." : "Very high — limit strong midday sun.";
       document.getElementById("moon-info").textContent = `${moonPhase()} · Moon information for tonight`;
-      document.getElementById("summary-value").textContent = `${weatherEmoji(weather.code)} ${Math.round(weather.temp)}°`;
-      document.getElementById("summary-advice").textContent = `${place.name}: feels like ${Math.round(weather.feels)}°, humidity ${Math.round(weather.humidity)}%, wind ${Math.round(weather.wind)} km/h.`;
       updateAirQuality(place);
       renderHourly(hourly);
       renderCalendar(daily);
       renderStatistics(daily, hourly);
       applyLiveWeatherExperience(weather);
     }
+
+    async function fetchUKOverview() {
+      const requests = ukInsightPlaces.map(async place => {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${place.lat}&longitude=${place.lon}&current=temperature_2m,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code&forecast_days=1&timezone=auto`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`UK overview request failed: ${response.status}`);
+        const data = await response.json();
+        return {
+          name: place.name,
+          temp: Number(data.current?.temperature_2m ?? 0),
+          wind: Number(data.current?.wind_speed_10m ?? 0),
+          code: Number(data.current?.weather_code ?? 3),
+          high: Number(data.daily?.temperature_2m_max?.[0] ?? 0),
+          low: Number(data.daily?.temperature_2m_min?.[0] ?? 0),
+          rain: Number(data.daily?.precipitation_probability_max?.[0] ?? 0)
+        };
+      });
+      return Promise.all(requests);
+    }
+
+    async function updateUKSmartInsights(place = lastSmartPlace, weather = lastSmartWeather, showConfirmation = false) {
+      if (!place || !weather || smartGlanceBusy) return;
+      smartGlanceBusy = true;
+      const refreshButton = document.getElementById("refresh-smart-glance");
+      if (refreshButton) { refreshButton.disabled = true; refreshButton.textContent = "Updating…"; }
+      try {
+        buildLocalInsights(place, weather);
+        const regions = await fetchUKOverview();
+        const warmest = regions.reduce((a, b) => b.high > a.high ? b : a);
+        const coolest = regions.reduce((a, b) => b.low < a.low ? b : a);
+        const wettest = regions.reduce((a, b) => b.rain > a.rain ? b : a);
+        const stormy = regions.filter(region => [95, 96, 99].includes(region.code));
+        const rainyCount = regions.filter(region => region.rain >= 50).length;
+        const broadCondition = stormy.length ? "Storms possible" : rainyCount >= 4 ? "Unsettled" : rainyCount >= 2 ? "Mixed" : "Mostly settled";
+        const overview = `${broadCondition} across the UK. ${warmest.name} is forecast to be warmest near ${Math.round(warmest.high)}°, while ${coolest.name} may fall to about ${Math.round(coolest.low)}°. ${wettest.name} has the highest rain chance at roughly ${Math.round(wettest.rain)}%.`;
+        setInsight("uk-overview", weatherEmoji(wettest.code) + " UK", overview);
+        const updated = new Date();
+        const stamp = updated.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+        document.getElementById("smart-glance-updated").textContent = `Auto-updated at ${stamp} · Refreshes every 30 minutes`;
+        if (showConfirmation) showToast("Smart UK insights updated");
+      } catch (error) {
+        console.error("Could not update UK smart insights:", error);
+        setInsight("uk-overview", "UK", "The UK-wide overview is temporarily unavailable, but your local guidance remains current.");
+        document.getElementById("smart-glance-updated").textContent = "Local insights updated · UK overview unavailable";
+      } finally {
+        smartGlanceBusy = false;
+        if (refreshButton) { refreshButton.disabled = false; refreshButton.textContent = "↻ Refresh insights"; }
+      }
+    }
+
+    function updatePremiumDashboard(place, weather) {
+      lastSmartPlace = place;
+      lastSmartWeather = weather;
+      buildLocalInsights(place, weather);
+      updateAutomatedV2(place, weather);
+      updateUKSmartInsights(place, weather);
+      clearInterval(smartGlanceTimer);
+      smartGlanceTimer = setInterval(() => updateUKSmartInsights(lastSmartPlace, lastSmartWeather), 30 * 60 * 1000);
+    }
+
+    document.getElementById("refresh-smart-glance")?.addEventListener("click", () => {
+      updateUKSmartInsights(lastSmartPlace, lastSmartWeather, true);
+    });
 
     function renderHourly(hourly) {
       const holder = document.getElementById("hourly-strip");
@@ -3679,14 +3829,154 @@ function applyTheme() {
 
     function renderStatistics(daily,hourly) {
       if(!daily?.time) return;
-      const max=Math.max(...daily.temperature_2m_max), min=Math.min(...daily.temperature_2m_min), rain=daily.precipitation_probability_max.reduce((a,b)=>a+(b||0),0)/daily.time.length;
-      const cards=[['Highest',`${Math.round(max)}°`,'Warmest forecast temperature'],['Lowest',`${Math.round(min)}°`,'Coolest forecast temperature'],['Average rain',`${Math.round(rain)}%`,'Average daily rain chance'],['Forecast days',daily.time.length,'Days currently available']];
+      const max=Math.max(...daily.temperature_2m_max), min=Math.min(...daily.temperature_2m_min);
+      const rainChance=daily.precipitation_probability_max.reduce((a,b)=>a+(b||0),0)/daily.time.length;
+      const rainTotal=(daily.precipitation_sum||[]).reduce((a,b)=>a+(b||0),0);
+      const maxWind=Math.max(...(daily.wind_speed_10m_max||[0]));
+      const sunshine=(daily.sunshine_duration||[]).reduce((a,b)=>a+(b||0),0)/3600;
+      const humidity=hourly?.relative_humidity_2m?.length ? hourly.relative_humidity_2m.reduce((a,b)=>a+(b||0),0)/hourly.relative_humidity_2m.length : 0;
+      const cards=[
+        ['Highest',`${Math.round(max)}°`,'Warmest forecast temperature'],
+        ['Lowest',`${Math.round(min)}°`,'Coolest forecast temperature'],
+        ['Rain total',`${rainTotal.toFixed(1)} mm`,'Forecast precipitation total'],
+        ['Windiest',`${Math.round(maxWind)} km/h`,'Maximum forecast wind speed'],
+        ['Sunshine',`${Math.round(sunshine)} h`,'Total forecast sunshine'],
+        ['Humidity',`${Math.round(humidity)}%`,'Average hourly humidity'],
+        ['Average rain',`${Math.round(rainChance)}%`,'Average daily rain chance'],
+        ['Forecast days',daily.time.length,'Live days currently available']
+      ];
       document.getElementById("statistics-grid").innerHTML=cards.map(c=>`<article class="premium-card glass"><h3>${c[0]}</h3><div class="premium-value">${c[1]}</div><div class="premium-sub">${c[2]}</div></article>`).join("");
     }
 
     function applyWallpaper() {
       ["sunset","aurora","ocean","stars","white"].forEach(name=>document.body.classList.toggle(`wallpaper-${name}`,settings.wallpaper===name));
       elements.wallpaperButtons.forEach(button=>button.setAttribute("aria-pressed",String(button.dataset.wallpaper===settings.wallpaper)));
+    }
+
+
+    function compassName(degrees=0) {
+      const names=["north","north-east","east","south-east","south","south-west","west","north-west"];
+      return names[Math.round((((degrees%360)+360)%360)/45)%8];
+    }
+
+    function findNextHourlyEvent(hourly, predicate) {
+      if(!hourly?.time) return null;
+      const now=Date.now();
+      for(let i=0;i<hourly.time.length;i++) {
+        const time=new Date(hourly.time[i]).getTime();
+        if(time>=now && predicate(i)) return {index:i,time};
+      }
+      return null;
+    }
+
+    function updateAutomatedV2(place, weather) {
+      const hourly=weather.hourly||{};
+      const daily=weather.daily||{};
+      const greeting=new Date().getHours()<12?"Good morning":new Date().getHours()<18?"Good afternoon":"Good evening";
+      const rainEvent=findNextHourlyEvent(hourly,i=>(hourly.precipitation_probability?.[i]||0)>=45 || (hourly.precipitation?.[i]||0)>0.1);
+      const stormEvent=findNextHourlyEvent(hourly,i=>[95,96,99].includes(Number(hourly.weather_code?.[i])));
+      const now=Date.now();
+      const nextRain=document.getElementById("next-rain");
+      if(nextRain) {
+        if(rainEvent) {
+          const mins=Math.max(0,Math.round((rainEvent.time-now)/60000));
+          const at=new Date(rainEvent.time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
+          const chance=Math.round(hourly.precipitation_probability?.[rainEvent.index]||0);
+          nextRain.textContent=mins<60?`Rain may begin in about ${mins} minutes (${chance}% chance).`:`Rain is next indicated around ${at} (${chance}% chance).`;
+        } else nextRain.textContent="No rain signal above 45% appears in the available hourly forecast.";
+      }
+
+      const sunset=daily.sunset?.[0]?new Date(daily.sunset[0]):null;
+      const sunrise=daily.sunrise?.[0]?new Date(daily.sunrise[0]):null;
+      const daylight=document.getElementById("daylight-summary");
+      if(daylight && sunset && sunrise) {
+        const daylightHours=(sunset-sunrise)/3600000;
+        daylight.textContent=`Sunrise ${sunrise.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})} · Sunset ${sunset.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})} · ${daylightHours.toFixed(1)} hours of daylight.`;
+      }
+
+      const condition=weatherWord(weather.code);
+      const high=Math.round(daily.temperature_2m_max?.[0]??weather.temp);
+      const low=Math.round(daily.temperature_2m_min?.[0]??weather.temp);
+      const peakRain=Math.round(daily.precipitation_probability_max?.[0]||0);
+      const summary=document.getElementById("smart-summary");
+      if(summary) summary.textContent=`${greeting}! ${place.name} is ${condition} at ${Math.round(weather.temp)}°. Today ranges from ${low}° to ${high}°, with rain chance peaking near ${peakRain}% and winds around ${Math.round(weather.wind)} km/h.`;
+
+      const islandIcon=document.getElementById("island-icon"), islandTitle=document.getElementById("island-title"), islandSubtitle=document.getElementById("island-subtitle"), islandExtra=document.getElementById("island-extra");
+      if(islandIcon) islandIcon.textContent=weatherEmoji(weather.code);
+      if(islandTitle) islandTitle.textContent=`${Math.round(weather.temp)}° in ${place.name} · ${condition}`;
+      if(islandSubtitle) islandSubtitle.textContent=rainEvent?`Next rain signal ${new Date(rainEvent.time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}`:`No near-term rain signal`;
+      if(islandExtra) islandExtra.textContent=`Feels ${Math.round(weather.feels)}° · Humidity ${Math.round(weather.humidity)}% · Wind ${Math.round(weather.wind)} km/h ${compassName(weather.windDirection)}.`;
+
+      const compass=document.getElementById("compass-needle");
+      if(compass) compass.style.transform=`translate(-50%,-100%) rotate(${weather.windDirection||0}deg)`;
+      const compassCopy=document.getElementById("compass-copy");
+      if(compassCopy) compassCopy.textContent=`Wind from ${compassName(weather.windDirection)} at ${Math.round(weather.wind)} km/h, gusting to ${Math.round(weather.windGust)} km/h.`;
+
+      const stormTitle=document.getElementById("storm-title"), stormCopy=document.getElementById("storm-copy"), stormEta=document.getElementById("storm-eta"), stormLabel=document.getElementById("storm-eta-label");
+      if(stormEvent) {
+        const mins=Math.max(0,Math.round((stormEvent.time-now)/60000));
+        stormTitle.textContent="⚡ Thunderstorm signal detected";
+        stormCopy.textContent=`The hourly Open-Meteo forecast shows a thunderstorm code near ${new Date(stormEvent.time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}. Check official warnings before travel.`;
+        stormEta.textContent=mins<60?`${mins} min`:`${Math.round(mins/60)} h`;
+        stormLabel.textContent="forecast ETA";
+      } else {
+        stormTitle.textContent="⚡ No storm signal";
+        stormCopy.textContent="No thunderstorm weather code appears in the available hourly forecast for this location.";
+        stormEta.textContent="Clear";
+        stormLabel.textContent="current outlook";
+      }
+
+      const sky=document.getElementById("sky-window"), drops=document.getElementById("droplet-layer");
+      if(sky) {
+        const rainy=[51,53,55,61,63,65,80,81,82].includes(weather.code), stormy=[95,96,99].includes(weather.code);
+        sky.classList.toggle("night",!weather.isDay);
+        if(drops) drops.style.display=(rainy||stormy)?"block":"none";
+        sky.style.boxShadow=stormy?"inset 0 0 80px rgba(150,170,255,.35)":"";
+        document.querySelectorAll('.mode-tab[data-sky]').forEach(b=>b.classList.toggle('active',b.dataset.sky===(stormy?'storm':rainy?'rain':weather.isDay?'day':'night')));
+      }
+
+      document.querySelectorAll('.smart-item').forEach((item,index)=>{
+        const detail=item.querySelector('span:last-child'); if(!detail)return;
+        if(index===0) detail.textContent=rainEvent?`Rain is indicated around ${new Date(rainEvent.time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}; plan travel accordingly.`:"No strong near-term rain signal is currently indicated.";
+        if(index===1) { const uv=Math.round(daily.uv_index_max?.[0]||0); detail.textContent=uv>=6?`UV reaches ${uv}; sunscreen, shade and a hat are recommended.`:`UV peaks near ${uv}; normal seasonal protection should be suitable.`; }
+        if(index===2 && sunset) { const mins=Math.round((sunset-now)/60000); detail.textContent=mins>0?`Sunset is at ${sunset.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}${mins<90?`, in about ${mins} minutes`:""}.`:`Sunset has passed; tomorrow’s daylight data will update automatically.`; }
+      });
+
+      autoSaveWeatherMemory(place,weather);
+    }
+
+    async function fetchLiveCityButton(button) {
+      const city=button.dataset.earthCity, lat=button.dataset.lat, lon=button.dataset.lon;
+      const result=document.getElementById("earth-result");
+      try {
+        result.textContent=`Loading ${city}…`;
+        const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=auto`);
+        if(!r.ok) throw new Error(r.status);
+        const d=await r.json(), c=d.current||{};
+        button.querySelector('strong').textContent=`${Math.round(c.temperature_2m)}°`;
+        result.textContent=`${city}: ${weatherEmoji(Number(c.weather_code))} ${Math.round(c.temperature_2m)}°, feels ${Math.round(c.apparent_temperature)}°, wind ${Math.round(c.wind_speed_10m)} km/h. Live Open-Meteo data.`;
+      } catch { result.textContent=`Live weather for ${city} is temporarily unavailable.`; }
+    }
+
+    const liveConditionPlaces={
+      London:{lat:51.5074,lon:-0.1278,icon:"🏙️"}, Somerset:{lat:51.0183,lon:-3.1005,icon:"🌳"}, Heathrow:{lat:51.4700,lon:-0.4543,icon:"✈️"}, Bristol:{lat:51.4545,lon:-2.5879,icon:"🌉"}
+    };
+    async function loadConditionPanel(name) {
+      const p=liveConditionPlaces[name], scene=document.getElementById('camera-scene'), title=document.getElementById('camera-title'), note=document.getElementById('camera-note');
+      if(!p||!note)return; title.textContent=`${name} live conditions`; scene.textContent='⏳'; note.textContent='Loading Open-Meteo data…';
+      try { const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,cloud_cover&timezone=auto`); if(!r.ok)throw new Error(r.status); const d=await r.json(),c=d.current; scene.textContent=weatherEmoji(Number(c.weather_code)); note.textContent=`${Math.round(c.temperature_2m)}°, feels ${Math.round(c.apparent_temperature)}° · Humidity ${Math.round(c.relative_humidity_2m)}% · Wind ${Math.round(c.wind_speed_10m)} km/h · Cloud ${Math.round(c.cloud_cover)}%. Live Open-Meteo data.`; }
+      catch { scene.textContent=p.icon; note.textContent='Live weather data is temporarily unavailable.'; }
+    }
+
+    function autoSaveWeatherMemory(place,weather) {
+      try {
+        const key=new Date().toISOString().slice(0,10), savedKey=localStorage.getItem('swLondonAutoMemoryDate');
+        if(savedKey===key) return;
+        const list=JSON.parse(localStorage.getItem('swLondonMemories')||'[]');
+        list.push({date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short'}),icon:weatherEmoji(weather.code),note:`${place.name} ${Math.round(weather.temp)}° · ${weatherWord(weather.code)}`});
+        localStorage.setItem('swLondonMemories',JSON.stringify(list.slice(-30)));
+        localStorage.setItem('swLondonAutoMemoryDate',key);
+      } catch {}
     }
 
     function applyLiveWeatherExperience(weather) {
@@ -4116,17 +4406,18 @@ function applyTheme() {
       const hour=new Date().getHours(); const greeting=hour<12?"Good morning":hour<18?"Good afternoon":"Good evening";
       $("#smart-summary").textContent=`${greeting}! Conditions look manageable. Check the hourly rain timeline before travelling and keep an eye on humidity warnings.`;
       $("#island-title").textContent=`${greeting} — your forecast is ready`;
-      $("#island-subtitle").textContent=hour>=18?"A calmer evening view is active":"Live conditions and smart guidance";
+      $("#island-subtitle").textContent=hour>=18?"A calmer evening view is active":"Live UK data and auto-generated guidance";
       $("#daylight-summary").textContent=hour>=20?"Night mode is active. The next sunrise preview begins tomorrow morning.":"Sunset approaches gradually as the live sky engine changes through the day.";
     }
-    updateSmartText();
+    updateSmartText(); // Initial fallback; replaced by live data after the first successful forecast update.
 
     let earthRotation=0, earthDragging=false, earthX=0;
     const earth=$("#earth");
     earth?.addEventListener("pointerdown",e=>{earthDragging=true;earthX=e.clientX;earth.setPointerCapture(e.pointerId)});
     earth?.addEventListener("pointermove",e=>{if(!earthDragging)return;earthRotation+=(e.clientX-earthX)*.6;earthX=e.clientX;earth.style.setProperty("--earth-rotation",earthRotation+"deg")});
     earth?.addEventListener("pointerup",()=>earthDragging=false);
-    $$(".earth-location").forEach(btn=>btn.addEventListener("click",()=>{$$(".earth-location").forEach(b=>b.classList.remove("active"));btn.classList.add("active");$("#earth-result").textContent=`${btn.dataset.earthCity} selected · ${btn.dataset.temp}°. This visual globe is ready to connect to a global forecast service later.`}));
+    $$(".earth-location").forEach(btn=>btn.addEventListener("click",()=>{$$(".earth-location").forEach(b=>b.classList.remove("active"));btn.classList.add("active");fetchLiveCityButton(btn);}));
+    $$(".earth-location").forEach(fetchLiveCityButton);
 
     function makeDrops(root,count=24){if(!root)return;root.innerHTML="";for(let i=0;i<count;i++){const d=document.createElement("i");d.className="drop";d.style.left=Math.random()*100+"%";d.style.top=-Math.random()*220+"px";d.style.animationDelay=Math.random()*1.2+"s";root.appendChild(d)}}
     function makeStars(root,count=35){if(!root)return;root.innerHTML="";for(let i=0;i<count;i++){const s=document.createElement("i");s.className="star";s.style.left=Math.random()*100+"%";s.style.top=Math.random()*70+"%";s.style.animationDelay=Math.random()*2+"s";root.appendChild(s)}}
@@ -4134,8 +4425,8 @@ function applyTheme() {
     $$(".mode-tab[data-sky]").forEach(btn=>btn.addEventListener("click",()=>{const mode=btn.dataset.sky;$$(".mode-tab[data-sky]").forEach(b=>b.classList.toggle("active",b===btn));const sky=$("#sky-window");sky.classList.toggle("night",mode==="night"||mode==="storm");$("#droplet-layer").style.display=(mode==="rain"||mode==="storm")?"block":"none";if(mode==="storm"){sky.style.boxShadow="inset 0 0 80px rgba(150,170,255,.35)"}else{sky.style.boxShadow=""}}));
     $("#droplet-layer").style.display="none";
 
-    const cams={London:["🏙️","London sky camera"],Somerset:["🌳","Somerset countryside camera"],Heathrow:["✈️","Heathrow airport sky camera"],Bristol:["🌉","Bristol sky camera"]};
-    $$("[data-camera]").forEach(btn=>btn.addEventListener("click",()=>{$$("[data-camera]").forEach(b=>b.classList.toggle("active",b===btn));const [icon,title]=cams[btn.dataset.camera];$("#camera-scene").textContent=icon;$("#camera-title").textContent=title}));
+    $$("[data-camera]").forEach(btn=>btn.addEventListener("click",()=>{$$("[data-camera]").forEach(b=>b.classList.toggle("active",b===btn));loadConditionPanel(btn.dataset.camera);}));
+    loadConditionPanel("London");
 
     let dragged=null;
     $$(".move-widget").forEach(w=>{w.addEventListener("dragstart",()=>{dragged=w;w.classList.add("dragging")});w.addEventListener("dragend",()=>{w.classList.remove("dragging");dragged=null});w.addEventListener("dragover",e=>{e.preventDefault();if(dragged&&dragged!==w){const r=w.getBoundingClientRect();$("#widget-board").insertBefore(dragged,e.clientY<r.top+r.height/2?w:w.nextSibling)}})});
@@ -4144,13 +4435,13 @@ function applyTheme() {
 
     const memories=(()=>{try{return JSON.parse(localStorage.getItem("swLondonMemories")||"[]")}catch{return[]}})();
     function renderMemories(){const grid=$("#memory-grid");if(!grid)return;grid.innerHTML="";const days=[...memories].slice(-14);if(!days.length){grid.innerHTML='<div class="empty-state glass"><h3>No memories yet</h3><p>Press “Save today” to add the current weather to your diary.</p></div>';return}days.forEach(m=>{const d=document.createElement("div");d.className="memory-day glass";d.innerHTML=`<strong>${escapeHTML(m.date)}</strong><span>${m.icon}</span>${escapeHTML(m.note)}`;grid.appendChild(d)})}
-    $("#save-memory")?.addEventListener("click",()=>{memories.push({date:new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short"}),icon:"🌤️",note:"Forecast saved"});localStorage.setItem("swLondonMemories",JSON.stringify(memories));renderMemories();showToast("Weather memory saved")});renderMemories();
+    $("#save-memory")?.addEventListener("click",()=>{const w=lastSmartWeather,p=lastSmartPlace;memories.push({date:new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short"}),icon:w?weatherEmoji(w.code):"🌤️",note:w&&p?`${p.name} ${Math.round(w.temp)}° · ${weatherWord(w.code)}`:"Forecast saved"});localStorage.setItem("swLondonMemories",JSON.stringify(memories.slice(-30)));renderMemories();showToast("Live weather memory saved")});renderMemories();
 
     let gameTimer=null,score=0;
     $("#start-game")?.addEventListener("click",()=>{clearInterval(gameTimer);score=0;$("#game-score").textContent=score;$("#game-area").innerHTML="";$("#game-status").textContent="Game running…";gameTimer=setInterval(()=>{const item=document.createElement("button");item.type="button";const bad=Math.random()<.25;item.className="game-item";item.textContent=bad?"⚡":"☀️";item.style.left=Math.random()*90+"%";item.style.top="-35px";item.addEventListener("click",()=>{score+=bad?-2:1;$("#game-score").textContent=score;item.remove()});$("#game-area").appendChild(item);setTimeout(()=>item.remove(),4200)},650);setTimeout(()=>{clearInterval(gameTimer);$("#game-status").textContent=`Finished — score ${score}`},15000)});
 
     function updateClock(){const n=new Date();$("#lock-time").textContent=n.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});}updateClock();setInterval(updateClock,30000);
-    const compass=$("#compass-needle");let angle=35;setInterval(()=>{if(document.hidden||v2Settings.experienceMode==="ultra")return;angle=(angle+7)%360;compass.style.transform=`translate(-50%,-100%) rotate(${angle}deg)`},2500);
+    // Wind compass is updated from live Open-Meteo wind direction data.
 
     document.addEventListener("visibilitychange",()=>{document.body.classList.toggle("page-hidden",document.hidden)});
     applyV2();
